@@ -23,11 +23,17 @@ class Auth extends CI_Controller {
 			//redirect them to the login page
 			redirect(base_url().'auth/login', 'refresh');
 		}
+		elseif($this->ion_auth->in_group('cliente'))
+		{
+			redirect(base_url().'auth/logout');
+			return show_error('You are an Cliente.');
+		}		
 		elseif (!$this->ion_auth->is_admin()) //remove this elseif if you want to enable this for non-admins
 		{
 			//redirect them to the home page because they must be an administrator to view this
-			return show_error('You must be an administrator to view this page.');
-		}
+			redirect(base_url().'auth/logout');
+			return show_error('You must be an administrator to view this page.');			
+		}		
 		else
 		{
 			//set the flash data error message if there is one
@@ -211,27 +217,29 @@ class Auth extends CI_Controller {
 		else
 		{
 			// get identity from username or email
-			if ( $this->config->item('identity', 'ion_auth') == 'username' ){
+			if ( $this->config->item('identity', 'ion_auth') == 'username' )
+			{
 				$identity = $this->ion_auth->where('username', strtolower($this->input->post('email')))->users()->row();
 			}
 			else
 			{
 				$identity = $this->ion_auth->where('email', strtolower($this->input->post('email')))->users()->row();
 			}
-	            	if(empty($identity)) {
+	        if(empty($identity)) 
+	        {
 
-	            		if($this->config->item('identity', 'ion_auth') == 'username')
-		            	{
-                                   $this->ion_auth->set_message('forgot_password_username_not_found');
-		            	}
-		            	else
-		            	{
-		            	   $this->ion_auth->set_message('forgot_password_email_not_found');
-		            	}
+        		if($this->config->item('identity', 'ion_auth') == 'username')
+            	{
+                           $this->ion_auth->set_message('forgot_password_username_not_found');
+            	}
+            	else
+            	{
+            	   $this->ion_auth->set_message('forgot_password_email_not_found');
+            	}
 
-		                $this->session->set_flashdata('message', $this->ion_auth->messages());
-                		redirect("auth/forgot_password", 'refresh');
-            		}
+                $this->session->set_flashdata('message', $this->ion_auth->messages());
+        		redirect(base_url()."auth/forgot_password", 'refresh');
+    		}
 
 			//run the forgotten password method to email an activation code to the user
 			$forgotten = $this->ion_auth->forgotten_password($identity->{$this->config->item('identity', 'ion_auth')});
@@ -240,7 +248,7 @@ class Auth extends CI_Controller {
 			{
 				//if there were no errors
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				redirect("auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
+				redirect(base_url()."auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
 			}
 			else
 			{
@@ -418,21 +426,21 @@ class Auth extends CI_Controller {
 	{
 		$this->data['title'] = "Create User";
 
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
-		{
+		/*if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		{			
 			redirect('auth', 'refresh');
-		}
+		}*/
 
 		$tables = $this->config->item('tables','ion_auth');
-
 		//validate form input
 		$this->form_validation->set_rules('first_name', $this->lang->line('create_user_validation_fname_label'), 'required');
 		$this->form_validation->set_rules('last_name', $this->lang->line('create_user_validation_lname_label'), 'required');
 		$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email|is_unique['.$tables['users'].'.email]');
 		$this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label'), 'required');
-		$this->form_validation->set_rules('company', $this->lang->line('create_user_validation_company_label'), 'required');
+		//$this->form_validation->set_rules('company', $this->lang->line('create_user_validation_company_label'), 'required');
 		$this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
 		$this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
+		$this->form_validation->set_rules('birthday', $this->lang->line('create_user_validation_birthday_label'), 'required');
 
 		if ($this->form_validation->run() == true)
 		{
@@ -443,11 +451,20 @@ class Auth extends CI_Controller {
 			$additional_data = array(
 				'first_name' => $this->input->post('first_name'),
 				'last_name'  => $this->input->post('last_name'),
-				'company'    => $this->input->post('company'),
+				//'company'    => $this->input->post('company'),
+				'company'    => "",
 				'phone'      => $this->input->post('phone'),
 			);
+
+			$client_data	= array(
+				'rfc'		=> " ",
+				'nombre'	=> $this->input->post('first_name'),
+				'aPaterno'	=> strtok($this->input->post('last_name'), " "),
+				'aMaterno'	=> strtok(" "),
+				'fecha_nac'	=> $this->input->post('birthday'),
+			);
 		}
-		if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data))
+		if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data, $client_data))
 		{
 			//check to see if we are creating the user
 			//redirect them back to the admin page

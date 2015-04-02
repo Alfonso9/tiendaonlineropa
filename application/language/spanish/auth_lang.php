@@ -24,13 +24,15 @@
 $lang['error_csrf'] = 'Este formulario no pasó nuestras pruebas de seguridad.';
 
 // Login
-$lang['login_heading']         = 'Ingresar';
+$lang['login_heading']         = 'Indentificate';//$lang['login_heading']         = 'Ingresar';
 $lang['login_subheading']      = 'Por favor, introduce tu email/usuario y contraseña.';
 $lang['login_identity_label']  = 'Email/Usuario:';
 $lang['login_password_label']  = 'Contraseña:';
 $lang['login_remember_label']  = 'Recuérdame:';
-$lang['login_submit_btn']      = 'Ingresar';
+$lang['login_submit_btn']      = 'Indentficar';//$lang['login_submit_btn']      = 'Ingresar';
 $lang['login_forgot_password'] = '¿Has olvidado tu contraseña?';
+$lang['signup_heading']        = 'Registrate'; //Agregadas
+$lang['signup_btn']		       = 'Crear cuenta';	//Agregadas
 
 // Index
 $lang['index_heading']           = 'Usuarios';
@@ -71,16 +73,18 @@ $lang['create_user_fname_label']                       = 'Nombre:';
 $lang['create_user_lname_label']                       = 'Apellidos:';
 $lang['create_user_company_label']                     = 'Compañía:';
 $lang['create_user_email_label']                       = 'Email:';
+$lang['create_user_birthday_label']                    = 'Fecha de nacimiento:';
 $lang['create_user_phone_label']                       = 'Teléfono:';
 $lang['create_user_password_label']                    = 'Contraseña:';
 $lang['create_user_password_confirm_label']            = 'Confirmar contraseña:';
-$lang['create_user_submit_btn']                        = 'Crear Usuario';
+$lang['create_user_submit_btn']                        = 'Crear';
 $lang['create_user_validation_fname_label']            = 'Nombre';
 $lang['create_user_validation_lname_label']            = 'Apellidos';
 $lang['create_user_validation_email_label']            = 'Correo electrónico';
 $lang['create_user_validation_phone1_label']           = 'Primera parte del número de teléfono';
 $lang['create_user_validation_phone2_label']           = 'Segunda parte del número de teléfono';
 $lang['create_user_validation_phone3_label']           = 'Tercera parte del número de teléfono';
+$lang['create_user_validation_birthday_label']         = 'Fecha de nacimiento';
 $lang['create_user_validation_company_label']          = 'Nombre de la compañía';
 $lang['create_user_validation_password_label']         = 'Contraseña';
 $lang['create_user_validation_password_confirm_label'] = 'Confirmación de contraseña';
@@ -160,7 +164,7 @@ $lang['reset_password_validation_new_password_confirm_label'] = 'Confirmar Nueva
 // Activation Email
 $lang['email_activate_heading']    = 'Activar cuenta por %s';
 $lang['email_activate_subheading'] = 'Por favor ingresa en este link para %s.';
-$lang['email_activate_link']       = 'activar tu cuenta';
+$lang['email_activate_link']       = 'Activar tu cuenta';
 
 // Forgot Password Email
 $lang['email_forgot_password_heading']    = 'Reestablecer contraseña para %s';

@@ -868,7 +868,7 @@ class Ion_auth_model extends CI_Model
 	 * @return bool
 	 * @author Mathew
 	 **/
-	public function register($username, $password, $email, $additional_data = array(), $groups = array())
+	public function register($username, $password, $email, $additional_data = array(), $client_data = array(), $groups = array())
 	{
 		$this->trigger_events('pre_register');
 
@@ -937,12 +937,19 @@ class Ion_auth_model extends CI_Model
 		//filter out any data passed that doesnt have a matching column in the users table
 		//and merge the set user data and the additional data
 		$user_data = array_merge($this->_filter_data($this->tables['users'], $additional_data), $data);
+		
 
 		$this->trigger_events('extra_set');
 
 		$this->db->insert($this->tables['users'], $user_data);
-
 		$id = $this->db->insert_id();
+//-------------------------------------------------------------------		
+		$cli_data	= array(
+				'iduser'		=> $id,
+		);
+		$c_data = array_merge($cli_data, $client_data);
+		$this->db->insert('cliente', $c_data);
+//-------------------------------------------------------------------
 
 		//add in groups array if it doesn't exits and stop adding into default group if default group ids are set
 		if( isset($default_group->id) && empty($groups) )
@@ -966,8 +973,7 @@ class Ion_auth_model extends CI_Model
 
 	/**
 	 * login
-	 *
-	 * @return bool
+	 * * @return bool
 	 * @author Mathew
 	 **/
 	public function login($identity, $password, $remember=FALSE)
@@ -1700,8 +1706,7 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 		}
 
-		$this->db->trans_commit();
-		echo "pollooooooooooooooooooooooooooooooooooooooooooo";
+		$this->db->trans_commit();		
 
 		$this->trigger_events(array('post_delete_user', 'post_delete_user_successful'));
 		$this->set_message('delete_successful');

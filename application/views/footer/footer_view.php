@@ -7,8 +7,15 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 
-    <footer class="#">
-        <span>&copy; Created by <a href="#">Andrea Prott</a> and <a href="#">Alfonso Ramirez</a>.</span>
+    <footer class="#">        
+        <div>
+            <span>GUÍA DE COMPRA</span>
+            <span>EMPRESA</span>
+            <span>POLÍTICAS</span>
+            <span>SERVICIOS</span>
+            <span>TIENDAS</span>            
+            <span>CONTACTO</span>
+        </div>
     </footer>
 </body>
 </html>

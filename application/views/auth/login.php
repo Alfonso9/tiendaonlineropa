@@ -3,27 +3,33 @@
 
 
 <section class="#">
- <h1>Iniciar Sesion</h1> 
+ <h1><?php echo lang('login_heading');?></h1> 
   <div id="infoMessage"><?php echo $message;?></div>
-  <?php echo form_open("auth/login");?>
+  <form class="form-horizontal" name="form" action="<?php base_url();?>login" method="POST">
     <div class="form-group">
-      <?php echo lang('login_identity_label', 'identity');?>
-      <?php echo form_input($identity,'','type="email" class="form-control"');?>
+      <label><?php echo lang('login_identity_label', 'identity');?></label>          
+      <input type="email" name="identity" class="form-control"/>
     </div>
     <div class="form-group">
-      <?php echo lang('login_password_label', 'password');?>
-      <?php echo form_input($password, '', 'type="password" class="form-control"');?>
+      <label><?php echo lang('login_password_label', 'password');?></label>          
+      <input type="password" name="password" value="" class="form-control"/>
     </div>
-    <div>
-      <?php echo lang('login_remember_label', 'remember');?>
-      <?php echo form_checkbox('remember', '1', FALSE, 'id="remember"');?>
+    <div class="form-group">
+      <label><?php echo lang('login_remember_label', 'remember');?></label>
+      <input type="checkbox" name="remember" id="remember" value="1" checked="checked" />
     </div>
-    <div>
-      <?php echo form_submit('submit', lang('login_submit_btn'), "class='#'");?>
+    <div class="form-group">
+      <button type="submit" class="#"><?php echo lang('login_submit_btn');?></button>
     </div>
-  <?php echo form_close();?>
+  </form>
   <div>
-    <a href="forgot_password"><?php echo lang('login_forgot_password');?></a>
+    <a href="forgot_password"><?php echo lang('login_forgot_password');?></a>    
+  </div> 
+  <h1><?php echo lang('signup_heading');?></h1> 
+  <div>
+    <a href="create_user">
+      <button class=""><?php echo lang('signup_btn');?></button>
+    </a>
   </div>
 </section>
 

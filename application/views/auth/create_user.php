@@ -2,41 +2,45 @@
 <?php $this->load->view('header/header_view'); ?>
 
 <section class="#">
-      <h1>Crear Usuario</h1>
+      <h1><?php echo lang('create_user_heading'); ?></h1>
       <div id="infoMessage"><?php echo $message;?></div>
-      <?php echo form_open("auth/create_user");?>
+      <form class="form-horizontal" name="form" action="<?php base_url();?>create_user" method="POST">
             <div class="form-group">
-                  <?php echo lang('create_user_fname_label', 'first_name');?> <br />
-                  <?php echo form_input($first_name,'','type="text" class="form-control"');?>
+                  <label><?php echo lang('create_user_fname_label', 'first_name');?></label><br>
+                  <input type="text" name="first_name" class="form-control">                                     
             </div>
             <div class="form-group">
-                  <?php echo lang('create_user_lname_label', 'last_name');?> <br />
-                  <?php echo form_input($last_name,'','type="text" class="form-control"');?>
+                  <label><?php echo lang('create_user_lname_label', 'last_name');?></label><br>
+                  <input type="text" name="last_name" class="form-control">                                     
+            </div>   
+            <!--<div class="form-group">
+                  <label><?php echo lang('create_user_company_label', 'company');?></label><br>
+                  <input type="text" name="company" class="form-control">                                     
+            </div>-->            
+            <div class="form-group">
+                  <label><?php echo lang('create_user_phone_label', 'phone');?></label><br>
+                  <input type="text" name="phone" class="form-control">                                     
             </div>
             <div class="form-group">
-                  <?php echo lang('create_user_company_label', 'company');?> <br />
-                  <?php echo form_input($company,'','type="text" class="form-control"');?>
+                  <label><?php echo lang('create_user_birthday_label');?></label><br>
+                  <input type="date" name="birthday" class="form-control">                                     
             </div>
             <div class="form-group">
-                  <?php echo lang('create_user_email_label', 'email');?> <br />
-                  <?php echo form_input($email,'','type="email" class="form-control"');?>
+                  <label><?php echo lang('create_user_email_label', 'email');?></label><br>
+                  <input type="email" name="email" class="form-control">                                     
             </div>
             <div class="form-group">
-                  <?php echo lang('create_user_phone_label', 'phone');?> <br />
-                  <?php echo form_input($phone,'','type="text" class="form-control"');?>
+                  <label><?php echo lang('create_user_password_label', 'password');?></label><br>
+                  <input type="password" name="password" class="form-control">                                     
             </div>
             <div class="form-group">
-                  <?php echo lang('create_user_password_label', 'password');?> <br />
-                  <?php echo form_input($password,'','type="password" class="form-control"');?>
-            </div>
-            <div class="form-group">
-                  <?php echo lang('create_user_password_confirm_label', 'password_confirm');?> <br />
-                  <?php echo form_input($password_confirm,'','type="password" class="form-control"');?>
+                  <label><?php echo lang('create_user_password_confirm_label', 'password_confirm');?></label><br>
+                  <input type="password" name="password_confirm" class="form-control">                                     
             </div>
             <div>
-                  <?php echo form_submit('submit', 'Guardar', "class='#'");?></p>
+                  <button class="#" type="submit"><?php echo lang('create_user_submit_btn');?></button>            
             </div>
-      <?php echo form_close();?>
+      </form>
 </section>
 
 
