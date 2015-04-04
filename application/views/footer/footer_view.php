@@ -8,14 +8,16 @@
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 
     <footer class="#">        
-        <div>
-            <span>GUÍA DE COMPRA</span>
-            <span>EMPRESA</span>
-            <span>POLÍTICAS</span>
-            <span>SERVICIOS</span>
-            <span>TIENDAS</span>            
-            <span>CONTACTO</span>
-        </div>
+        <nav>
+            <ul>
+                <li><a href="#">GUÍA DE COMPRA</a></li>
+                <li><a href="#">EMPRESA</a></li>
+                <li><a href="#">POLÍTICAS</a></li>
+                <li><a href="#">SERVICIOS</a></li>
+                <li><a href="#">TIENDAS</a></li>            
+                <li><a href="#">CONTACTO</a></li>
+            </ul>            
+        </nav>
     </footer>
 </body>
 </html>
