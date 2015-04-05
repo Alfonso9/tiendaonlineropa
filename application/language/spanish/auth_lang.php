@@ -29,10 +29,13 @@ $lang['login_subheading']      = 'Por favor, introduce tu email/usuario y contra
 $lang['login_identity_label']  = 'Email/Usuario:';
 $lang['login_password_label']  = 'Contraseña:';
 $lang['login_remember_label']  = 'Recuérdame:';
-$lang['login_submit_btn']      = 'Indentficar';//$lang['login_submit_btn']      = 'Ingresar';
+$lang['login_submit_btn']      = 'INGRESA';//$lang['login_submit_btn']      = 'Ingresar';
 $lang['login_forgot_password'] = '¿Has olvidado tu contraseña?';
 $lang['signup_heading']        = 'Registrate'; //Agregadas
 $lang['signup_btn']		       = 'Crear cuenta';	//Agregadas
+
+//Compra
+$lang['buy_submit_btn']      = 'TU COMPRA';
 
 // Index
 $lang['index_heading']           = 'Usuarios';

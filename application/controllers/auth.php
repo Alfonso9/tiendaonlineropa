@@ -21,11 +21,12 @@ class Auth extends CI_Controller {
 		if (!$this->ion_auth->logged_in())
 		{
 			//redirect them to the login page
-			redirect(base_url().'auth/login', 'refresh');
+			//redirect(base_url().'auth/login', 'refresh');
+			redirect(base_url().'auth/main', 'refresh');
 		}
 		elseif($this->ion_auth->in_group('cliente'))
 		{
-			redirect(base_url().'auth/logout');
+			redirect(base_url().'auth/main');
 			return show_error('You are an Cliente.');
 		}		
 		elseif (!$this->ion_auth->is_admin()) //remove this elseif if you want to enable this for non-admins
@@ -48,6 +49,17 @@ class Auth extends CI_Controller {
 
 			$this->_render_page('auth/index', $this->data);
 		}
+	}
+
+	function main()
+	{
+		$this->load->view('principal_view');
+	}
+
+	function mujer_playera()
+	{
+		$query = $this->ion_auth->getProducto();
+		$this->_render_page('gal_mujer_playera', array('query' => $query));
 	}
 
 	//log the user in

@@ -2265,5 +2265,10 @@ class Ion_auth_model extends CI_Model
 		return $ip_address;
 	}
 
-
+	public function getProducto()
+	{
+		//return $this->db->get('producto');
+		$query = $this->db->query("SELECT * FROM producto;");
+		return $query->result();
+	}
 }
