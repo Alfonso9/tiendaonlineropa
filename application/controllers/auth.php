@@ -5,13 +5,11 @@ class Auth extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->database();
-		$this->load->library(array('ion_auth','form_validation'));
-		$this->load->helper(array('url','language'));
-
+		//$this->load->database();
+		//$this->load->library(array('ion_auth','form_validation'));
+		//$this->load->helper(array('url','language'));
 		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
-
-		$this->lang->load('auth');
+		//$this->lang->load('auth');		
 	}
 
 	//redirect if needed, otherwise display the user list
@@ -54,6 +52,19 @@ class Auth extends CI_Controller {
 	function main()
 	{
 		$this->load->view('principal_view');
+	}
+
+	public function addProd()
+	{				
+		$producto = $this->input->post('data');				
+		//$producto['cantidad'] = 1;
+		$this->cart->insert($producto);
+	}
+
+	function compra()
+	{
+		//$this->_render_page('auth/pedido_compra_view', $carrito);
+		$this->load->view('pedido_compra_view');
 	}
 
 	function mujer_playera()

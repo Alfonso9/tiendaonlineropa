@@ -36,6 +36,7 @@ $lang['signup_btn']		       = 'Crear cuenta';	//Agregadas
 
 //Compra
 $lang['buy_submit_btn']      = 'TU COMPRA';
+$lang['caradd_submit_btn']   = 'Agregar al carrito';
 
 // Index
 $lang['index_heading']           = 'Usuarios';
