@@ -1,5 +1,4 @@
-$(window).load(function(){
-        $('body').scrollspy({
-            target: '#sidebar'
-        });
-        });
+$('body').scrollspy({
+        target: '.bs-docs-sidebar',
+        offset: 40
+    });

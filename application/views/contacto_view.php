@@ -5,59 +5,51 @@
     <!--Nav Bar -->
     <nav class="col-xs-3 bs-docs-sidebar">
         <ul id="sidebar" class="nav nav-stacked fixed">
+        	<h1>Contacto   /</h1>
             <li>
-                <a href="#GroupA">Group A</a>
-                <ul class="nav nav-stacked">
-                    <li><a href="#GroupASub1">Sub-Group 1</a></li>
-                    <li><a href="#GroupASub2">Sub-Group 2</a></li>
-                </ul>
+                <a href="#GroupA">TELÉFONOS</a>
             </li>
             <li>
-                <a href="#GroupB">Group B</a>
-                <ul class="nav nav-stacked">
-                    <li><a href="#GroupBSub1">Sub-Group 1</a></li>
-                    <li><a href="#GroupBSub2">Sub-Group 2</a></li>
-                </ul>
+                <a href="#GroupB">CORREOS</a>
             </li>
             <li>
-                <a href="#GroupC">Group C</a>
-                <ul class="nav nav-stacked">
-                    <li><a href="#GroupCSub1">Sub-Group 1</a></li>
-                    <li><a href="#GroupCSub2">Sub-Group 2</a></li>
-                </ul>
+                <a href="#GroupC">REDES SOCIALES</a>
             </li>
         </ul>
     </nav>
     <!--Main Content -->
-    <div class="col-xs-9">
+    <div class="col-xs-5">
         <section id="GroupA" class="group">
-            <h3>Group A</h3>
-            <div id="GroupASub1" class="subgroup">
-                <h4>Group A Sub 1</h4>
-            </div>
-            <div id="GroupASub2" class="subgroup">
-                <h4>Group A Sub 2</h4>
-            </div>
+            <h2>Teléfonos</h2>
+            <p>
+            	tel.- 522288126059
+            </p>
         </section>
         <section id="GroupB" class="group">
-            <h3>Group B</h3>
-            <div id="GroupBSub1" class="subgroup">
-                <h4>Group B Sub 1</h4>
-            </div>
-            <div id="GroupBSub2" class="subgroup">
-                <h4>Group B Sub 2</h4>
-            </div>
-        </section>
+            <h2>Correos</h2>
+            <p>
+            	correo.- contact.mx@tshirtandstaff.com
+            </p>
+        </section> 
         <section id="GroupC" class="group">
-            <h3>Group C</h3>
-            <div id="GroupCSub1" class="subgroup">
-                <h4>Group C Sub 1</h4>
-            </div>
-            <div id="GroupCSub2" class="subgroup">
-                <h4>Group C Sub 2</h4>
-            </div>
-        </section>    
+            <h2>Redes sociales</h2>
+            <p>
+            	facebook.- t-shirt & staff<br>
+            	twitter.- @tshirtandstaff<br>
+            	pinterest.- t-shirt & staff<br>
+            	instagram.- t-shirt & staff<br>
+            	spotifu.- t-shirt & staff<br>
+            </p>
+        </section>  
     </div>
+
+
+	<div class="col-xs-3">
+		<div class="imginfo fixed">
+			<img src="<?=base_url()?>/images/contacto.jpg">
+		</div>
+	</div>
+
 </div>
 
 <?php $this->load->view('footer/footer_view'); ?>

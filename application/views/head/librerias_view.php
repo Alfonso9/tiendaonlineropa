@@ -22,13 +22,7 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-    <script type="text/JavaScript">
-    $('body').scrollspy({
-        target: '.bs-docs-sidebar',
-        offset: 40
-    });
+    <script type="text/JavaScript" href="<?=base_url()?>js/jquery.js"></script>
 
-    </script>
-    <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
 </head>
 

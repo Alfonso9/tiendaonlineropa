@@ -1,36 +1,42 @@
-<?php $this->load->view('head/librerias_view');?>
-<?php $this->load->view('header/header_view');?>
+<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+      <div class="modal-header">
+        <h2><?php echo lang('login_heading');?></h2>
+        <div>
+          <h5><small><strong>YA SOY USUARIO DE TSHIRTANDSTAFF.COM</strong></small></h5>
+          <p><small>Introduce tu dirección de e-mail y la contraseña para identificarte en la web.</small></p>
+          <form class="form-horizontal" name="form" action="<?php base_url();?>login" method="POST">
+            <div>         
+              <input type="email" name="identity" class="form-control"/><br>
+            </div>
+            <div>         
+              <input type="password" name="password" value="" class="form-control"/>
+            </div>
+            <div>
+              <label><?php echo lang('login_remember_label', 'remember');?></label>
+              <input type="checkbox" name="remember" id="remember" value="1" checked="checked" />
+            </div>
+            <div>
+              <button type="submit" class="#"><?php echo lang('login_submit_btn');?></button>
+            </div>
+          </form>
+        </div>
+      </div>
 
-
-<section class="#">
- <h1><?php echo lang('login_heading');?></h1> 
-  <div id="infoMessage"><?php echo $message;?></div>
-  <form class="form-horizontal" name="form" action="<?php base_url();?>login" method="POST">
-    <div class="form-group">
-      <label><?php echo lang('login_identity_label', 'identity');?></label>          
-      <input type="email" name="identity" class="form-control"/>
+      <div class="modal-header">
+        <h2><?php echo lang('signup_heading');?></h2>
+        <div>
+          <h5><small><strong>QUIERO SER USUARIO DE TSHIRTANDSTAFF.COM</strong></small></h5>
+          <p><small>Si todavía no tienes una cuenta de usuario de TSHIRTANDSTAFF.COM, utiliza esta opción para acceder al formulario de registro. Te solicitaremos la información imprescindible para agilizar el proceso de compra.</small></p>
+          <div>
+            <a href="create_user">
+            <button class="#"><?php echo lang('signup_btn');?></button>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-      <label><?php echo lang('login_password_label', 'password');?></label>          
-      <input type="password" name="password" value="" class="form-control"/>
-    </div>
-    <div class="form-group">
-      <label><?php echo lang('login_remember_label', 'remember');?></label>
-      <input type="checkbox" name="remember" id="remember" value="1" checked="checked" />
-    </div>
-    <div class="form-group">
-      <button type="submit" class="#"><?php echo lang('login_submit_btn');?></button>
-    </div>
-  </form>
-  <div>
-    <a href="forgot_password"><?php echo lang('login_forgot_password');?></a>    
-  </div> 
-  <h1><?php echo lang('signup_heading');?></h1> 
-  <div>
-    <a href="create_user">
-      <button class=""><?php echo lang('signup_btn');?></button>
-    </a>
   </div>
-</section>
-
-<?php $this->load->view('footer/footer_view'); ?>
+</div>

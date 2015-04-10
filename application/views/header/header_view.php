@@ -12,11 +12,11 @@
               <span class="caret"></span>
           	</a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="mujer_playera">PLAYERA</a></li>
+              <li><a href="mujer_playera"><small>PLAYERA</small></a></li>
               <li class="divider"></li>
-              <li><a href="mujer_sudadera">SUDADERA</a></li>
+              <li><a href="mujer_sudadera"><small>SUDADERA</small></a></li>
               <li class="divider"></li>
-              <li><a href="mujer_gorra">GORRA</a></li>
+              <li><a href="mujer_gorra"><small>GORRA</small></a></li>
             </ul>
           </li>
           <li class="dropdown">
@@ -25,21 +25,23 @@
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="hombre_playera">PLAYERA</a></li>
+              <li><a href="hombre_playera"><small>PLAYERA</small></a></li>
               <li class="divider"></li>
-              <li><a href="hombre_sudadera">SUDADERA</a></li>
+              <li><a href="hombre_sudadera"><small>SUDADERA</small></a></li>
               <li class="divider"></li>
-              <li><a href="hombre_gorra">GORRA</a></li>
+              <li><a href="hombre_gorra"><small>GORRA</small></a></li>
             </ul>
-          </li>         
+          </li>   
+
+          <li>
+            <a href="#" data-toggle="modal" data-target="#basicModal">
+              <span class="glyphicon glyphicon-user"></span>&nbsp;
+              INGRESA
+            </a>
+            <?php $this->load->view('auth/login');?>
+          </li>
   				<li>
-  					<a href="login">
-  						<span class="glyphicon glyphicon-user"></span>&nbsp;
-  						<?php echo lang('login_submit_btn');?>
-  					</a>
-  				</li>
-  				<li>
-  					<a href="#">
+  					<a href="<?= base_url()?>auth/compra">
   						<span class="glyphicon glyphicon-lock"></span>&nbsp;
   						<?php echo lang('buy_submit_btn');?>
   					</a>
