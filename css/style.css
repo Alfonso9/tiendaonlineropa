@@ -148,6 +148,12 @@ div.container div.pedido h2.compra
     width: 250px;
 }
 
+div.container div.pedido h2.ped
+{
+    display: inline-table;
+    width: 300px;   
+}
+
 div.container div.pedido h2.envio
 {
     display: inline-table;
@@ -157,7 +163,12 @@ div.container div.pedido h2.envio
 div.container div.pedido h2.pago
 {
     display: inline-table;
-    width: 140px;
+    width: 140px;    
+}
+
+div.container div.pedido h2.des
+{
+    opacity: .5;
 }
 
 div.container div.pedido h2.compra:after,
@@ -179,7 +190,32 @@ div.container div.table-responsive table.totalMXN td.total
     width: 80%;
 }
 
+div.container div.table-responsive table.env td.total,
+div.container div.table-responsive table.env td.total
+{
+    width: 15%;
+}
+
 div.container div.table-responsive table.totalMXN td
 {
     font-size: 2.5em;
+}
+
+.iconBuy
+{
+    pointer-events: none;
+}
+
+div.container div.table-responsive table.buttons td.totale,
+div.container div.table-responsive table.buttons td.total
+{
+    width: 80%;
+}
+div.container div.table-responsive table.method
+{
+    width: 25%;
+}
+div.container div.table-responsive table.realizado
+{
+    width: 100%;    
 }

@@ -1,6 +1,12 @@
 <?php $this->load->view('head/librerias_view');?>
-<?php $this->load->view('header/header_view');?>
-
+<?php 
+  if ($this->ion_auth->in_group('cliente')) {
+    $this->load->view('header/header_cli_view');  
+  }else
+  {
+    $this->load->view('header/header_view');
+  }  
+ ?>
 	<!--Navbar-->
 	<?php $this->load->view('carousel_view');?>
 	<!--End Navbar-->

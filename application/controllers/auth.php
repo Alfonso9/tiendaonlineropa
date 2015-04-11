@@ -26,6 +26,7 @@ class Auth extends CI_Controller {
 		}
 		elseif($this->ion_auth->in_group('cliente'))
 		{
+
 			redirect(base_url().'auth/main');
 			return show_error('You are an Cliente.');
 		}		
@@ -53,7 +54,8 @@ class Auth extends CI_Controller {
 
 	function main()
 	{
-		$this->load->view('principal_view');
+		$this->data['user'] = $this->ion_auth->user()->row();
+		$this->load->view('principal_view', $this->data);
 	}
 
 	function addProd()
@@ -64,9 +66,27 @@ class Auth extends CI_Controller {
 
 	function compra()
 	{
-		//$this->_render_page('auth/pedido_compra_view', $carrito);
-		$this->load->view('pedido_compra_view');
+		$this->data['user'] = $this->ion_auth->user()->row();
+		$this->load->view('pedido_compra_view', $this->data);
 	}
+
+	function envio()
+	{
+		$this->data['user'] = $this->ion_auth->user()->row();
+		$this->load->view('pedido_envio_view', $this->data);
+	}
+
+	function pago()
+	{
+		$this->data['user'] = $this->ion_auth->user()->row();
+		$this->load->view('pedido_pago_view', $this->data);
+	}
+
+	function realizado()
+	{
+		$this->data['user'] = $this->ion_auth->user()->row();
+		$this->load->view('pedido_realizado_view', $this->data);	
+	}	
 
 	function vaciarCesta()
 	{
@@ -81,14 +101,14 @@ class Auth extends CI_Controller {
 						'qty'     => 0
 					);
 		$this->cart->update($data);
-	}	
+	}		
 
 	function mujer_playera()
 	{
 		$tipo = "Playera";
 		$genero = "mujer";
-		$query = $this->ion_auth->getProducto($tipo, $genero);
-		$this->_render_page('gal_mujer_playera', array('query' => $query));
+		$query = $this->ion_auth->getProducto($tipo, $genero);		
+		$this->_render_page('gal_mujer_playera', array('query' => $query, 'user' => $this->ion_auth->user()->row()));
 	}
 
 	function mujer_sudadera()
@@ -96,7 +116,7 @@ class Auth extends CI_Controller {
 		$tipo = "Sudadera";
 		$genero = "mujer";
 		$query = $this->ion_auth->getProducto($tipo, $genero);
-		$this->_render_page('gal_mujer_sudadera', array('query' => $query));
+		$this->_render_page('gal_mujer_sudadera', array('query' => $query, 'user' => $this->ion_auth->user()->row()));
 	}
 
 	function mujer_gorra()
@@ -104,7 +124,7 @@ class Auth extends CI_Controller {
 		$tipo = "Gorra";
 		$genero = "mujer";
 		$query = $this->ion_auth->getProducto($tipo, $genero);
-		$this->_render_page('gal_mujer_gorra', array('query' => $query));
+		$this->_render_page('gal_mujer_gorra', array('query' => $query, 'user' => $this->ion_auth->user()->row()));
 	}
 
 	function hombre_playera()
@@ -112,7 +132,7 @@ class Auth extends CI_Controller {
 		$tipo = "Playera";
 		$genero = "hombre";
 		$query = $this->ion_auth->getProducto($tipo, $genero);
-		$this->_render_page('gal_hombre_playera', array('query' => $query));
+		$this->_render_page('gal_hombre_playera', array('query' => $query, 'user' => $this->ion_auth->user()->row()));
 	}
 
 	function hombre_sudadera()
@@ -120,7 +140,7 @@ class Auth extends CI_Controller {
 		$tipo = "Sudadera";
 		$genero = "hombre";
 		$query = $this->ion_auth->getProducto($tipo, $genero);
-		$this->_render_page('gal_hombre_sudadera', array('query' => $query));
+		$this->_render_page('gal_hombre_sudadera', array('query' => $query, 'user' => $this->ion_auth->user()->row()));
 	}
 
 	function hombre_gorra()
@@ -128,37 +148,43 @@ class Auth extends CI_Controller {
 		$tipo = "Gorra";
 		$genero = "hombre";
 		$query = $this->ion_auth->getProducto($tipo, $genero);
-		$this->_render_page('gal_hombre_gorra', array('query' => $query));
+		$this->_render_page('gal_hombre_gorra', array('query' => $query, 'user' => $this->ion_auth->user()->row()));
 	}
 
 	function info_guiacompra()
 	{
-		$this->load->view('guiacompra_view');
+		$this->data['user'] = $this->ion_auth->user()->row();
+		$this->load->view('guiacompra_view', $this->data);
 	}
 
 	function info_empresa()
 	{
-		$this->load->view('empresa_view');
+		$this->data['user'] = $this->ion_auth->user()->row();
+		$this->load->view('empresa_view', $this->data);
 	}
 
 	function info_politicas()
 	{
-		$this->load->view('politicas_view');
+		$this->data['user'] = $this->ion_auth->user()->row();
+		$this->load->view('politicas_view', $this->data);
 	}
 
 	function info_servicios()
 	{
-		$this->load->view('servicios_view');
+		$this->data['user'] = $this->ion_auth->user()->row();
+		$this->load->view('servicios_view', $this->data);
 	}
 
 	function info_tiendas()
 	{
-		$this->load->view('tiendas_view');
+		$this->data['user'] = $this->ion_auth->user()->row();
+		$this->load->view('tiendas_view', $this->data);
 	}
 
 	function info_contacto()
 	{
-		$this->load->view('contacto_view');
+		$this->data['user'] = $this->ion_auth->user()->row();
+		$this->load->view('contacto_view', $this->data);
 	}
 
 	//log the user in
@@ -215,13 +241,15 @@ class Auth extends CI_Controller {
 	function logout()
 	{
 		$this->data['title'] = "Logout";
-
+		$this->cart->destroy();
 		//log the user out
 		$logout = $this->ion_auth->logout();
 
 		//redirect them to the login page
 		$this->session->set_flashdata('message', $this->ion_auth->messages());
-		redirect(base_url().'auth/login', 'refresh');
+		redirect(base_url().'auth/main', 'refresh');
+		
+		//$this->load->view('principal_view');
 	}
 
 	//change password
@@ -978,4 +1006,9 @@ class Auth extends CI_Controller {
 		if (!$render) return $view_html;
 	}	
 		
+	function perfil()
+	{
+		$this->data['user'] = $this->ion_auth->user()->row();
+		$this->load->view('perfil_cli_view', $this->data);			
+	}
 }
