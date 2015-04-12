@@ -91,7 +91,7 @@ section article.producto img
 
 section article.producto div.compra
 {			
-	position: absolute;
+	position: relative;
 	width: 250px;
 	height: 150px;
 	background-color: white;		
@@ -102,14 +102,31 @@ section article.producto div.compra
 	transition: opacity 1s;
 }
 
-section article.producto div.compra a{
-	padding-left: 70px;
+
+section article.producto div.compra a
+{   
+    position: relative;
+    padding-left: 30%;
 	color: black;
+}
+
+section article.producto div.compra a:hover
+{
+    cursor: pointer;
 }
 
 section article.producto div.compra:hover
 {	
 	opacity: 0.7;
+}
+
+section article.producto div.compra div button.talla
+{
+    margin-left: 40%;
+    width: 50%;
+    height: 15%;
+    font-size: .6em;
+    display: inline;
 }
 
 .modal-dialog{

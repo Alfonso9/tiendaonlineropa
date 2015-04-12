@@ -5,13 +5,13 @@ class Auth extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->database();
-		$this->load->library(array('ion_auth','form_validation'));
-		$this->load->helper(array('url','language'));
+		//$this->load->database();
+		//$this->load->library(array('ion_auth','form_validation'));
+		//$this->load->helper(array('url','language'));
 
 		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
-		$this->lang->load('auth');
+		//$this->lang->load('auth');
 	}
 
 	//redirect if needed, otherwise display the user list
@@ -72,20 +72,79 @@ class Auth extends CI_Controller {
 
 	function envio()
 	{
+
 		$this->data['user'] = $this->ion_auth->user()->row();
 		$this->load->view('pedido_envio_view', $this->data);
 	}
 
-	function pago()
+	function addMetEnvio()
 	{
-		$this->data['user'] = $this->ion_auth->user()->row();
-		$this->load->view('pedido_pago_view', $this->data);
+		$arr;
+		foreach ($this->cart->contents() as $items):
+			foreach ($this->cart->product_options($items['rowid']) as $option_name => $option_value):
+				$arr[$option_name] = $option_value;
+			endforeach;
+			$arr['envio'] = $this->input->post('envio');
+			$data = array(
+							'rowid'   => $items['rowid'],
+							'options' => $arr,
+						);
+			$this->cart->update($data);
+		endforeach;		
 	}
 
-	function realizado()
+	function addMetPago()
 	{
+		$arr;
+		foreach ($this->cart->contents() as $items):
+			foreach ($this->cart->product_options($items['rowid']) as $option_name => $option_value):
+				$arr[$option_name] = $option_value;
+			endforeach;
+			$arr['pago'] = $this->input->post('pago');
+			$data = array(
+							'rowid'   => $items['rowid'],
+							'options' => $arr,
+						);
+			$this->cart->update($data);
+		endforeach;		
+	}
+
+	function pagar()
+	{
+		$this->data['envio'] = $this->input->post('envio');		
 		$this->data['user'] = $this->ion_auth->user()->row();
+		$this->_render_page('pedido_pago_view', $this->data);
+	}
+
+
+	function realizado()
+	{		
+		$arr = array(); $data = array();
+		foreach ($this->cart->contents() as $items):
+			$arr['id'] 		= $items['id'];
+			$arr['qty'] 	= $items['qty'];
+			$arr['price'] 	= $items['price'];
+			$arr['name'] 	= $items['name'];
+			foreach ($this->cart->product_options($items['rowid']) as $option_name => $option_value):
+				$arr[$option_name] = $option_value;
+			endforeach;
+			array_push($data, $arr);
+		endforeach;	
+		$this->data['user'] = $this->ion_auth->user()->row();
+		$this->data['folio'] = $this->ion_auth->setPedido($this->data['user']->id, $data);
+		$this->data['cliente'] = $this->ion_auth->getCliente($this->data['user']->id);
+		$this->cart->destroy();
+		$this->data['query'] = $this->ion_auth->getPedido($this->data['user']->id, $this->data['folio']);
 		$this->load->view('pedido_realizado_view', $this->data);	
+	}	
+
+	function verPedidoSelec()
+	{		
+		$this->data['user'] = $this->ion_auth->user()->row();
+		$this->data['folio'] = $this->input->post('folio');
+		$this->data['cliente'] = $this->ion_auth->getCliente($this->data['user']->id);
+		$this->data['query'] = $this->ion_auth->getPedido($this->data['user']->id, $this->data['folio']);
+		$this->load->view('perfPedVer_cli_view', $this->data);	
 	}	
 
 	function vaciarCesta()
@@ -102,12 +161,184 @@ class Auth extends CI_Controller {
 					);
 		$this->cart->update($data);
 	}		
+	
+	function dCuenta()
+	{
+		$user = $this->ion_auth->user()->row();
+		$query = $this->ion_auth->getCliente($user->id);		
+		$this->load->view('perfCuenta_cli_view', array('query' => $query, 'user' => $user, 'message' => $this->ion_auth->errors()));			
+	}
+
+		function dAcceso()
+	{
+		$user = $this->ion_auth->user()->row();
+		$query = $this->ion_auth->getCliente($user->id);		
+		$this->load->view('perfAcceso_cli_view', array('query' => $query, 'user' => $user, 'message' => $this->ion_auth->errors()));			
+	}
+
+	function edit_acceso()
+	{
+		$user = $this->ion_auth->user()->row();
+		$query = $this->ion_auth->getCliente($user->id);
+		//validate form input
+		$this->form_validation->set_rules('username', $this->lang->line('create_user_validation_fusername_label'), 'required');
+		$this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
+		$this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'));
+
+
+		if (!empty($_POST) && $this->form_validation->run() === TRUE) 
+		{
+			//update the password if it was posted
+			if ($this->input->post('password'))
+			{				
+				$data_u = array(
+					'username'		=>	$this->input->post('username'),
+					'password' 		=>	$this->input->post('password')
+				);
+				$this->ion_auth->setCuenta($user->id, $data_u, true);
+			}else
+			{
+				$data_u = array(
+					'username'		=>	$this->input->post('username')
+				);
+				$this->ion_auth->setCuenta($user->id, $data_u, false);
+			}
+			
+			redirect(base_url().'auth/dAcceso', 'refresh');
+		}
+		else
+		{					
+			//set the flash data error message if there is one
+			$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
+
+			//pass the user to the view
+			$this->data['user'] = $user;
+			$this->data['query'] = $query;
+
+			$this->data['username'] = array(
+				'name'  => 'username',
+				'id'    => 'username',
+				'type'  => 'text',
+				'value' => $this->form_validation->set_value('username', $user->first_name)
+			);
+
+			$this->_render_page('perfAcceso_cli_view', $this->data);
+		}
+	}
+
+	function dPersonal()
+	{
+		$user = $this->ion_auth->user()->row();
+		$query = $this->ion_auth->getCliente($user->id);
+		$this->load->view('perfPersonal_cli_view', array('query' => $query, 'user' => $user, 'message' => $this->ion_auth->errors()));			
+	}
+
+	function edit_personal()
+	{
+		$user = $this->ion_auth->user()->row();
+		$query = $this->ion_auth->getCliente($user->id);
+		//validate form input
+		$this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'required');
+		$this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'required');
+		$this->form_validation->set_rules('phone', $this->lang->line('edit_user_validation_phone_label'), 'required');
+		$this->form_validation->set_rules('rfc', $this->lang->line('edit_user_validation_frfc_label'), 'required');
+		$this->form_validation->set_rules('direccion', $this->lang->line('edit_user_validation_faddres_label'), 'required');
+		$this->form_validation->set_rules('cp', $this->lang->line('edit_user_validation_fcp_label'), 'required');
+		$this->form_validation->set_rules('colonia', $this->lang->line('edit_user_validation_fcolonia_label'), 'required');
+		$this->form_validation->set_rules('ciudad', $this->lang->line('edit_user_validation_fcity_label'), 'required');
+		$this->form_validation->set_rules('estado', $this->lang->line('edit_user_validation_fstate_label'), 'required');
+
+
+		if (!empty($_POST) && $this->form_validation->run() === TRUE) 
+		{
+			$aP = strtok($this->input->post('last_name')," ");
+			$aM = strtok(" ");
+			if ($aM == "") {
+				$aM = " ";
+			}
+
+			$data_c = array(
+				'rfc'		=>	$this->input->post('rfc'),
+				'nombre'	=>	$this->input->post('first_name'),
+				'aPaterno'	=>	$aP,
+				'aMaterno'	=>	$aM,								
+			);	
+
+			$calle = strtok($this->input->post('direccion')," ");
+			$numero = strtok(" ");
+			if ($numero == "" && $calle == '0') {
+				$numero = 0;
+				$calle = "Desconocido";
+			}
+
+			$data_d = array(
+				'calle'		=>	$calle,				
+				'ciudad'	=>	$this->input->post('ciudad'),
+				'numero'	=>	$numero,
+				'cp'		=>	$this->input->post('cp'),
+				'municipio'	=>	$this->input->post('municipio'),
+				'colonia'	=>	$this->input->post('colonia'),
+				'estado'	=>	$this->input->post('estado')
+			);
+
+			$data_u = array(
+				'phone'		=>	$this->input->post('phone'),
+			);	
+
+			$this->ion_auth->setPers($user->id, $data_u, $data_c, $data_d);
+
+			redirect(base_url().'auth/dPersonal', 'refresh');
+		}
+		else
+		{					
+			//set the flash data error message if there is one
+			$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
+
+			//pass the user to the view
+			$this->data['user'] = $user;
+			$this->data['query'] = $query;
+
+			$this->data['first_name'] = array(
+				'name'  => 'first_name',
+				'id'    => 'first_name',
+				'type'  => 'text',
+				'value' => $this->form_validation->set_value('first_name', $user->first_name),
+			);
+			$this->data['last_name'] = array(
+				'name'  => 'last_name',
+				'id'    => 'last_name',
+				'type'  => 'text',
+				'value' => $this->form_validation->set_value('last_name', $user->last_name),
+			);			
+			$this->data['phone'] = array(
+				'name'  => 'phone',
+				'id'    => 'phone',
+				'type'  => 'text',
+				'value' => $this->form_validation->set_value('phone', $user->phone),
+			);			
+
+			$this->_render_page('perfPersonal_cli_view', $this->data);
+		}
+	}
+
+	function dPedido()
+	{
+		$user = $this->ion_auth->user()->row();
+		$query = $this->ion_auth->getCliente($user->id);
+		$ped = $this->ion_auth->getPedido($user->id);		
+		$this->load->view('perfPedido_cli_view', array('query' => $query, 'user' => $user, 'ped' => $ped));
+	}
+
+	function guardaPedido()
+	{
+		$this->ion_auth->setPedido();
+	}
 
 	function mujer_playera()
 	{
 		$tipo = "Playera";
 		$genero = "mujer";
-		$query = $this->ion_auth->getProducto($tipo, $genero);		
+		$query = $this->ion_auth->getProducto($tipo, $genero);
 		$this->_render_page('gal_mujer_playera', array('query' => $query, 'user' => $this->ion_auth->user()->row()));
 	}
 
@@ -233,7 +464,7 @@ class Auth extends CI_Controller {
 				'type' => 'password',
 			);
 
-			$this->_render_page('auth/login', $this->data);
+			redirect('auth', 'refresh');
 		}
 	}
 
@@ -595,14 +826,22 @@ class Auth extends CI_Controller {
 				'phone'      => $this->input->post('phone'),
 			);
 
+			$aP = strtok($this->input->post('last_name'), " ");
+			$aM = strtok(" ");
+			if ($aM == 0)
+			{
+				$aM = " ";
+			}
+
 			$client_data	= array(
 				'rfc'		=> " ",
 				'nombre'	=> $this->input->post('first_name'),
-				'aPaterno'	=> strtok($this->input->post('last_name'), " "),
-				'aMaterno'	=> strtok(" "),
+				'aPaterno'	=> $aP,
+				'aMaterno'	=> $aM,
 				'fecha_nac'	=> $this->input->post('birthday'),
 			);
 		}
+
 		if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data, $client_data))
 		{
 			//check to see if we are creating the user
@@ -634,12 +873,12 @@ class Auth extends CI_Controller {
 				'type'  => 'text',
 				'value' => $this->form_validation->set_value('email'),
 			);
-			$this->data['company'] = array(
+			/*$this->data['company'] = array(
 				'name'  => 'company',
 				'id'    => 'company',
 				'type'  => 'text',
 				'value' => $this->form_validation->set_value('company'),
-			);
+			);*/
 			$this->data['phone'] = array(
 				'name'  => 'phone',
 				'id'    => 'phone',
@@ -1005,10 +1244,4 @@ class Auth extends CI_Controller {
 
 		if (!$render) return $view_html;
 	}	
-		
-	function perfil()
-	{
-		$this->data['user'] = $this->ion_auth->user()->row();
-		$this->load->view('perfil_cli_view', $this->data);			
-	}
 }

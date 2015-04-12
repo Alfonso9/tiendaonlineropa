@@ -1,14 +1,5 @@
-<?php $this->load->view('head/librerias_view');?>
-<?php 
-  if ($this->ion_auth->in_group('cliente')) {
-    $this->load->view('header/header_cli_view');  
-  }else
-  {
-    $this->load->view('header/header_view');
-  }  
- ?>
-
 <div class="container cesta">
+	<a href="dPedido">Atras</a>
 	<div class="pedido">
       <h2 class="ped">Pedido Realizado.</h2>
     </div>
@@ -66,38 +57,5 @@
 			<td class="total">Total</td>
 			<td>MXN $<?php echo $pago; ?></td>			
 		</table>
-		<table class="table buttons">			
-			<td class="totale"><a class="btn btn-primary active" role="button" href="main">VOLVER A PRINCIPAL</a></td>			
-			<td class="total"><a class="btn btn-primary active" role="button" href="">CANCELAR PEDIDO</a></td>
-		</table>
 	</div>
 </div>
-
-<script type="text/javascript">		
-		function delItem(data) 
-		{		
-	       	$.ajax
-	        ({
-	        	type: "POST",
-		        url: "<?php echo base_url();?>auth/eliminarItem",	        
-				data: {'data' : data},
-				success: function()
-						{
-							try
-							{								
-								alert("Eliminado de tu compra");
-								location.reload();
-							}catch(e)
-							{
-								alert('Exception while resquest...');
-							}						
-						},
-				error: 	function()
-						{
-							alert('Error while resquest..');
-						}
-		    });		
-	    }
-	</script>
-
-<?php $this->load->view('footer/footer_view'); ?>

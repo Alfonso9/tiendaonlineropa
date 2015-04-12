@@ -28,12 +28,12 @@
 				<?php endforeach; ?>
 				<tr>
 					<td>
-						<input type="radio" name="metEnv" checked> Standard: 2 a 4 dias (*Excepto zonas remotas) MXN $ 55.00				
+						<input type="radio" id="standard" name="metEnv" onclick="seleccion()"> Standard: 2 a 4 dias (*Excepto zonas remotas) MXN $ 55.00				
 					</td>
 				</tr>								
 				<tr>
 					<td>
-						<input type="radio" name="metEnv" checked> Recogida en Tienda: 3 a 5 dias (*Excepto zonas remotas) GRATUITO
+						<input type="radio" id="recogida" name="metEnv" onclick="seleccion()"> Recogida en Tienda: 3 a 5 dias (*Excepto zonas remotas) GRATUITO
 					</td>
 				</tr>
 			</tbody>				
@@ -48,12 +48,49 @@
 		</table>
 		<table class="table buttons">			
 			<td class="totale"><a class="btn btn-primary active" role="button" href="compra">TU COMPRA</a></td>			
-			<td class="total"><a class="btn btn-primary active" role="button" href="pago">SEGUIR</a></td>
+			<td class="total"><a class="btn btn-primary active pago" id="pagod" role="button" href="pagar">SEGUIR</a></td>
 		</table>
 	</div>
 </div>
 
-<script type="text/javascript">		
+<script type="text/javascript">				
+		window.onload = function(){ document.getElementById("pagod").setAttribute("disabled", "disabled"); }
+		function seleccion()
+		{
+			var envio = null;
+			if(document.getElementById('standard').checked == 1)
+			{
+				envio = 'standard';
+			}
+			else if(document.getElementById('recogida').checked == 1)
+			{
+				envio = 'recogida';
+			}	
+			if(envio != null)
+			{	
+				document.getElementById("pagod").removeAttribute("disabled", "disabled");
+				$.ajax
+		        ({
+		        	type: "POST",
+			        url: "<?php echo base_url();?>auth/addMetEnvio",	        
+					data: {'envio' : envio},
+					success: function()
+							{
+								try{}
+								catch(e)
+								{
+									alert('Exception while resquest...');
+								}						
+							},
+					error: 	function()
+							{
+								alert('Error while resquest..');
+							}
+			    });
+			}
+			else 
+				alert("No ha seleccionado una forma de envío");
+		}
 		function delItem(data) 
 		{		
 	       	$.ajax

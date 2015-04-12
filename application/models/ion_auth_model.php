@@ -949,6 +949,18 @@ class Ion_auth_model extends CI_Model
 		);
 		$c_data = array_merge($cli_data, $client_data);
 		$this->db->insert('cliente', $c_data);
+
+		$cli_data	= array(
+				'iduser'		=> $id,
+				'calle'		    => " ",
+				'ciudad'		=> " ",
+				'numero'		=> 0,
+				'cp'	    	=> " ",
+				'municipio'		=> " ",
+				'colonia'		=> " ",
+				'estado'		=> " ",
+		);
+		$this->db->insert('dircliente', $cli_data);
 //-------------------------------------------------------------------
 
 		//add in groups array if it doesn't exits and stop adding into default group if default group ids are set
@@ -2275,5 +2287,90 @@ class Ion_auth_model extends CI_Model
 		return $query->result();
 	}
 
+	public function getCliente($id = NULL)
+	{
+		if($id != NULL)
+		{
+			$query = $this->db->query("SELECT rfc, nombre, aPaterno, aMaterno, fecha_nac, calle, numero, cp, colonia, ciudad, estado, municipio
+									   FROM cliente JOIN (SELECT * FROM dircliente WHERE iduser = '".$id."') 
+									   AS dir ON cliente.iduser = dir.iduser ;");
+		}else $query = NULL;
+		return $query->row();				
+	}
 
+
+	public function setPedido($id=NULL, $arr)
+	{
+		$query = null;
+		date_default_timezone_set('UTC');
+		if($id != NULL)
+		{
+			$data; $folio = date("yjns");
+			foreach ($arr as $it):
+				$data = array(	'iduser' 	=> $id, 
+								'folio' 	=> $folio,
+								'cantidad' 	=> $it['qty'],
+								'cod_prod'	=> $it['id'],
+								'color' 	=> $it['color'],
+								'talla' 	=> $it['talla'],
+								'fecha' 	=> date('Y-m-d'),
+								'archivo' 	=> " ",
+								'servicio' 	=> " ",
+								'pago'		=> $it['price'],
+								'estado_ped'=> "Pendiente",
+							);
+				$str = $this->db->insert_string('pedido', $data);
+				$query = $this->db->query($str);
+			endforeach;									
+		}
+		return $folio;
+	}
+
+	public function getPedido($id=NULL, $folio = NULL)
+	{
+		if($id != NULL && $folio != null)
+		{
+			$query = $this->db->query("SELECT * FROM producto JOIN (SELECT * FROM pedido WHERE iduser = '".$id."' AND folio = '".$folio."') 
+									   AS ped ON producto.cod_prod = ped.cod_prod ORDER BY ped.fecha;");
+			return $query->result();
+		}
+		else
+		{
+			$query = $this->db->query("SELECT DISTINCT pedido.folio, ped.fecha, estado_ped FROM pedido 
+										JOIN (SELECT fecha, folio FROM pedido WHERE iduser = '".$id."') as ped ON pedido.folio = ped.folio;");
+			return $query->result();
+		}
+	}
+
+	public function setPers($id, $user, $cli, $dir)
+	{		
+		$where = "id = ".$id;
+		$str = $this->db->update_string('users', $user, $where); 
+		$this->db->query($str);
+
+		$where = "iduser = ".$id;
+		$str = $this->db->update_string('cliente', $cli, $where); 
+		$this->db->query($str);		
+
+		$str = $this->db->update_string('dircliente', $dir, $where); 
+		$this->db->query($str);		
+	}
+
+	public function setCuenta($id, $user, $val)
+	{		
+		if ($val == true) {
+			$salt       = $this->store_salt ? $this->salt() : FALSE;
+			$this->user['password']   = $this->hash_password($user->password, $salt);
+
+			$where = "id = ".$id;
+			$str = $this->db->update_string('users', $user, $where); 
+			$this->db->query($str);	
+		}
+		else
+		{
+			$where = "id = ".$id;
+			$str = $this->db->update_string('users', $user, $where); 
+			$this->db->query($str);	
+		}		
+	}
 }

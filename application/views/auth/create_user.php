@@ -14,7 +14,7 @@
                   <input type="text" name="last_name" class="form-control">                                     
             </div>   
             <!--<div class="form-group">
-                  <label><?php echo lang('create_user_company_label', 'company');?></label><br>
+                  <label><?php #echo lang('create_user_company_label', 'company');?></label><br>
                   <input type="text" name="company" class="form-control">                                     
             </div>-->            
             <div class="form-group">

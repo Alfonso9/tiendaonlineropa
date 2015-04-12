@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50623
 File Encoding         : 65001
 
-Date: 2015-03-24 10:38:40
+Date: 2015-04-12 15:12:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -31,6 +31,11 @@ CREATE TABLE `cliente` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of cliente
+-- ----------------------------
+INSERT INTO `cliente` VALUES ('26', 'RAMS897635', 'Lorenzo Alfonso', 'Ramirez', 'Zarate', '2015-04-14');
+
+-- ----------------------------
 -- Table structure for dircliente
 -- ----------------------------
 DROP TABLE IF EXISTS `dircliente`;
@@ -48,6 +53,11 @@ CREATE TABLE `dircliente` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of dircliente
+-- ----------------------------
+INSERT INTO `dircliente` VALUES ('26', 'Guanajuato', 'Xalapa', '10', '91000', 'Xalapa', ' Macu', 'Veracruz');
+
+-- ----------------------------
 -- Table structure for empleado
 -- ----------------------------
 DROP TABLE IF EXISTS `empleado`;
@@ -61,6 +71,10 @@ CREATE TABLE `empleado` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of empleado
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for groups
 -- ----------------------------
 DROP TABLE IF EXISTS `groups`;
@@ -70,6 +84,13 @@ CREATE TABLE `groups` (
   `description` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of groups
+-- ----------------------------
+INSERT INTO `groups` VALUES ('1', 'admin', 'Administrador');
+INSERT INTO `groups` VALUES ('2', 'cliente', 'Publico en General');
+INSERT INTO `groups` VALUES ('3', 'empleado', 'Empleado de la Empresa');
 
 -- ----------------------------
 -- Table structure for login_attempts
@@ -84,6 +105,10 @@ CREATE TABLE `login_attempts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of login_attempts
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for material
 -- ----------------------------
 DROP TABLE IF EXISTS `material`;
@@ -96,24 +121,40 @@ CREATE TABLE `material` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of material
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for pedido
 -- ----------------------------
 DROP TABLE IF EXISTS `pedido`;
 CREATE TABLE `pedido` (
   `iduser` int(11) unsigned NOT NULL,
-  `folio` int(5) DEFAULT NULL,
+  `folio` int(5) NOT NULL,
   `cantidad` int(11) unsigned DEFAULT NULL,
   `cod_prod` varchar(5) NOT NULL,
+  `color` varchar(20) DEFAULT NULL,
+  `talla` varchar(10) DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   `archivo` varchar(255) DEFAULT NULL,
   `servicio` varchar(255) DEFAULT NULL,
   `pago` varchar(50) DEFAULT NULL,
   `estado_ped` varchar(40) DEFAULT NULL,
-  PRIMARY KEY (`iduser`),
+  PRIMARY KEY (`iduser`,`folio`,`cod_prod`),
   KEY `fk_cod_prod` (`cod_prod`),
   CONSTRAINT `fk_cod_prod` FOREIGN KEY (`cod_prod`) REFERENCES `producto` (`cod_prod`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `fk_id_iduser_4` FOREIGN KEY (`iduser`) REFERENCES `cliente` (`iduser`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pedido
+-- ----------------------------
+INSERT INTO `pedido` VALUES ('26', '1512402', '1', '10', 'grisgaspe', 'G', '2015-04-12', ' ', ' ', '55', 'Pendiente');
+INSERT INTO `pedido` VALUES ('26', '1512402', '1', '12', 'azulrey', 'G', '2015-04-12', ' ', ' ', '55', 'Pendiente');
+INSERT INTO `pedido` VALUES ('26', '1512402', '1', '30', 'blanco', 'G', '2015-04-12', ' ', ' ', '65', 'Pendiente');
+INSERT INTO `pedido` VALUES ('26', '1512402', '1', '32', 'negro', 'G', '2015-04-12', ' ', ' ', '65', 'Pendiente');
+INSERT INTO `pedido` VALUES ('26', '1512428', '1', '1', 'blanco', 'G', '2015-04-12', ' ', ' ', '25', 'Pendiente');
+INSERT INTO `pedido` VALUES ('26', '1512444', '1', '32', 'negro', 'G', '2015-04-12', ' ', ' ', '65', 'Pendiente');
 
 -- ----------------------------
 -- Table structure for producto
@@ -121,16 +162,60 @@ CREATE TABLE `pedido` (
 DROP TABLE IF EXISTS `producto`;
 CREATE TABLE `producto` (
   `cod_prod` varchar(5) NOT NULL,
-  `color` varchar(30) DEFAULT NULL,
+  `tipo` varchar(20) DEFAULT NULL,
   `modelo` varchar(50) DEFAULT NULL,
+  `genero` varchar(10) DEFAULT NULL,
+  `color` varchar(30) DEFAULT NULL,
   `talla` varchar(20) DEFAULT NULL,
-  `img_p` varchar(255) DEFAULT NULL,
-  `cant_p` int(11) DEFAULT NULL,
+  `cant_p` varchar(20) DEFAULT NULL,
   `descrip` varchar(255) DEFAULT NULL,
   `precio` float(11,2) DEFAULT NULL,
+  `img_p` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`cod_prod`),
   KEY `cod_prod` (`cod_prod`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of producto
+-- ----------------------------
+INSERT INTO `producto` VALUES ('1', 'Playera', 'Cuello Redondo', 'mujer', 'blanco', 'CH|M|G|XG', '1000', '100% Algodón', '25.00', 'images/MUJER/PLAYERA/PLAYERA_OPTIMA_32582_A12AXGD.jpg');
+INSERT INTO `producto` VALUES ('10', 'Sudadera', 'Basica', 'mujer', 'grisgaspe', 'CH|M|G|XG', '2500', 'Algodón-50% Poliéster', '55.00', 'images/MUJER/SUDADERA/FELPA_OPTIMA_33513_A12DXGD.jpg');
+INSERT INTO `producto` VALUES ('11', 'Sudadera', 'Basica', 'mujer', 'azulmarino', 'CH|M|G|XG', '2500', 'Algodón-50% Poliéster', '55.00', 'images/MUJER/SUDADERA/FELPA_OPTIMA_33513_A12EXGD.jpg');
+INSERT INTO `producto` VALUES ('12', 'Sudadera', 'Basica', 'mujer', 'azulrey', 'CH|M|G|XG', '2500', 'Algodón-50% Poliéster', '55.00', 'images/MUJER/SUDADERA/FELPA_OPTIMA_33513_A12FXGD.jpg');
+INSERT INTO `producto` VALUES ('13', 'Gorra', 'Gabardina', 'mujer', 'azul', 'UNITALLA', '100', '100% Poliéster', '19.00', 'images/MUJER/GORRA/3438-MLM4247012824_052013-O.jpg');
+INSERT INTO `producto` VALUES ('14', 'Gorra', 'Gabardina', 'mujer', 'rosa', 'UNITALLA', '100', '100% Poliéster', '19.00', 'images/MUJER/GORRA/3449-MLM4247034391_052013-O.jpg');
+INSERT INTO `producto` VALUES ('15', 'Gorra', 'Gabardina', 'mujer', 'naranja', 'UNITALLA', '100', '100% Poliéster', '19.00', 'images/MUJER/GORRA/3450-MLM4247012845_052013-O.jpg');
+INSERT INTO `producto` VALUES ('16', 'Gorra', 'Gabardina', 'mujer', 'negro', 'UNITALLA', '100', '100% Poliéster', '19.00', 'images/MUJER/GORRA/3459-MLM4247034485_052013-O.jpg');
+INSERT INTO `producto` VALUES ('17', 'Gorra', 'Gabardina', 'mujer', 'blanco', 'UNITALLA', '100', '100% Poliéster', '19.00', 'images/MUJER/GORRA/3478-MLM4247014239_052013-O.jpg');
+INSERT INTO `producto` VALUES ('18', 'Playera', 'Polo', 'mujer', 'blanco', 'CH|M|G|XG', '2500', '100% Algodón', '30.00', 'images/MUJER/PLAYERA/POLO/PLAYERA_OPTIMA_33811_A12AXGD.jpg');
+INSERT INTO `producto` VALUES ('19', 'Playera', 'Polo', 'mujer', 'rojo', 'CH|M|G|XG', '2500', '100% Algodón', '30.00', 'images/MUJER/PLAYERA/POLO/PLAYERA_OPTIMA_33811_A12BXGD.jpg');
+INSERT INTO `producto` VALUES ('2', 'Playera', 'Cuello Redondo', 'mujer', 'rojo', 'CH|M|G|XG', '2500', '100% Algodón', '25.00', 'images/MUJER/PLAYERA/PLAYERA_OPTIMA_32582_A12BXGD.jpg');
+INSERT INTO `producto` VALUES ('20', 'Playera', 'Polo', 'mujer', 'negro', 'CH|M|G|XG', '2500', '100% Algodón', '30.00', 'images/MUJER/PLAYERA/POLO/PLAYERA_OPTIMA_33811_A12CXGD.jpg');
+INSERT INTO `producto` VALUES ('21', 'Playera', 'Cuello Redondo', 'hombre', 'blanco', 'CH|M|G|XG', '2500', '100% Algodón', '25.00', 'images/HOMBRE/PLAYERA/PLAYERA_OPTIMA_32702_A12AXGD.jpg');
+INSERT INTO `producto` VALUES ('22', 'Playera', 'Cuello Redondo', 'hombre', 'rojo', 'CH|M|G|XG', '2500', '100% Algodón', '25.00', 'images/HOMBRE/PLAYERA/PLAYERA_OPTIMA_32702_A12BXGD.jpg');
+INSERT INTO `producto` VALUES ('23', 'Playera', 'Cuello Redondo', 'hombre', 'negro', 'CH|M|G|XG', '2500', '100% Algodón', '25.00', 'images/HOMBRE/PLAYERA/PLAYERA_OPTIMA_32702_A12CXGD.jpg');
+INSERT INTO `producto` VALUES ('24', 'Playera', 'Cuello Redondo', 'hombre', 'azulcielo', 'CH|M|G|XG', '2500', '100% Algodón', '25.00', 'images/HOMBRE/PLAYERA/PLAYERA_OPTIMA_32702_A12DXGD.jpg');
+INSERT INTO `producto` VALUES ('25', 'Playera', 'Cuello Redondo', 'hombre', 'grisgaspe', 'CH|M|G|XG', '2500', '100% Algodón', '25.00', 'images/HOMBRE/PLAYERA/PLAYERA_OPTIMA_32702_A12EXGD.jpg');
+INSERT INTO `producto` VALUES ('26', 'Playera', 'Cuello Redondo', 'hombre', 'azulcielo', 'CH|M|G|XG', '2500', '100% Algodón', '25.00', 'images/HOMBRE/PLAYERA/PLAYERA_OPTIMA_32702_A12FXGD.jpg');
+INSERT INTO `producto` VALUES ('27', 'Playera', 'Polo', 'hombre', 'blanco', 'CH|M|G|XG', '2000', '100% Algodón', '30.00', 'images/HOMBRE/PLAYERA/POLO/PLAYERA_OPTIMA_33912_A12AXGD.jpg');
+INSERT INTO `producto` VALUES ('28', 'Playera', 'Polo', 'hombre', 'rojo', 'CH|M|G|XG', '2000', '100% Algodón', '30.00', 'images/HOMBRE/PLAYERA/POLO/PLAYERA_OPTIMA_33912_A12BXGD.jpg');
+INSERT INTO `producto` VALUES ('29', 'Playera', 'Polo', 'hombre', 'negro', 'CH|M|G|XG', '2000', '100% Algodón', '30.00', 'images/HOMBRE/PLAYERA/POLO/PLAYERA_OPTIMA_33912_A12CXGD.jpg');
+INSERT INTO `producto` VALUES ('3', 'Playera', 'Cuello Redondo', 'mujer', 'negro', 'CH|M|G|XG', '2500', '100% Algodón', '25.00', 'images/MUJER/PLAYERA/PLAYERA_OPTIMA_32582_A12CXGD.jpg');
+INSERT INTO `producto` VALUES ('30', 'Sudadera', 'Basica', 'hombre', 'blanco', 'CH|M|G|XG', '2600', 'Algodón-50% Poliéster', '65.00', 'images/HOMBRE/SUDADERA/FELPA_OPTIMA_33502_A12AXGD.jpg');
+INSERT INTO `producto` VALUES ('31', 'Sudadera', 'Basica', 'hombre', 'rojo', 'CH|M|G|XG', '2600', 'Algodón-50% Poliéster', '65.00', 'images/HOMBRE/SUDADERA/FELPA_OPTIMA_33502_A12BXGD.jpg');
+INSERT INTO `producto` VALUES ('32', 'Sudadera', 'Basica', 'hombre', 'negro', 'CH|M|G|XG', '2600', 'Algodón-50% Poliéster', '65.00', 'images/HOMBRE/SUDADERA/FELPA_OPTIMA_33502_A12CXGD.jpg');
+INSERT INTO `producto` VALUES ('33', 'Sudadera', 'Basica', 'hombre', 'grisgaspe', 'CH|M|G|XG', '2600', 'Algodón-50% Poliéster', '65.00', 'images/HOMBRE/SUDADERA/FELPA_OPTIMA_33502_A12DXGD.jpg');
+INSERT INTO `producto` VALUES ('34', 'Sudadera', 'Basica', 'hombre', 'azulmarino', 'CH|M|G|XG', '2600', 'Algodón-50% Poliéster', '65.00', 'images/HOMBRE/SUDADERA/FELPA_OPTIMA_33502_A12EXGD.jpg');
+INSERT INTO `producto` VALUES ('35', 'Sudadera', 'Basica', 'hombre', 'azulrey', 'CH|M|G|XG', '2600', 'Algodón-50% Poliéster', '65.00', 'images/HOMBRE/SUDADERA/FELPA_OPTIMA_33502_A12FXGD.jpg');
+INSERT INTO `producto` VALUES ('36', 'Gorra', 'Gabardina', 'hombre', 'blanco', 'UNITALLA', '1500', '100% Poliéster', '29.00', 'images/HOMBRE/GORRA/GGSBSC01gde.jpg');
+INSERT INTO `producto` VALUES ('37', 'Gorra', 'Gabardina', 'hombre', 'negro', 'UNITALLA', '1500', '100% Poliéster', '29.00', 'images/HOMBRE/GORRA/GGSBSC03gde.jpg');
+INSERT INTO `producto` VALUES ('38', 'Gorra', 'Gabardina', 'hombre', 'rojo', 'UNITALLA', '1500', '100% Poliéster', '29.00', 'images/HOMBRE/GORRA/GGSBSC06gde.jpg');
+INSERT INTO `producto` VALUES ('4', 'Playera', 'Cuello Redondo', 'mujer', 'azulcielo', 'CH|M|G|XG', '2500', '100% Algodón', '25.00', 'images/MUJER/PLAYERA/PLAYERA_OPTIMA_32582_A12DXGD.jpg');
+INSERT INTO `producto` VALUES ('5', 'Playera', 'Cuello Redondo', 'mujer', 'grisgaspe', 'CH|M|G|XG', '2500', '100% Algodón', '25.00', 'images/MUJER/PLAYERA/PLAYERA_OPTIMA_32582_A12FXGD.jpg');
+INSERT INTO `producto` VALUES ('6', 'Playera', 'Cuello Redondo', 'mujer', 'azulmarino', 'CH|M|G|XG', '2500', '100% Algodón', '25.00', 'images/MUJER/PLAYERA/PLAYERA_OPTIMA_32582_A12GXGD.jpg');
+INSERT INTO `producto` VALUES ('7', 'Sudadera', 'Basica', 'mujer', 'blanco', 'CH|M|G|XG', '2500', 'Algodón-50% Poliéster', '55.00', 'images/MUJER/SUDADERA/FELPA_OPTIMA_33513_A12AXGD.jpg');
+INSERT INTO `producto` VALUES ('8', 'Sudadera', 'Basica', 'mujer', 'rojo', 'CH|M|G|XG', '2500', 'Algodón-50% Poliéster', '55.00', 'images/MUJER/SUDADERA/FELPA_OPTIMA_33513_A12BXGD.jpg');
+INSERT INTO `producto` VALUES ('9', 'Sudadera', 'Basica', 'mujer', 'negro', 'CH|M|G|XG', '2500', 'Algodón-50% Poliéster', '55.00', 'images/MUJER/SUDADERA/FELPA_OPTIMA_33513_A12CXGD.jpg');
 
 -- ----------------------------
 -- Table structure for users
@@ -155,7 +240,13 @@ CREATE TABLE `users` (
   `company` varchar(100) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of users
+-- ----------------------------
+INSERT INTO `users` VALUES ('1', '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', null, null, 'XxZBCclY/nVWW7g9OyUDm.', '1268889823', '1428682377', '1', 'Admin', 'istrator', 'ADMIN', '0');
+INSERT INTO `users` VALUES ('26', '127.0.0.1', 'Alfonso', '$2y$08$nncKhYTnvWsxSvUXPTRo5.PD7A17Cfz/0YTdTbvcTykdjzBQEpmiW', null, 'lorenzo@hotmail.com', null, null, null, 'FU9oBszZFI.hhKtUKuh2pu', '1428785477', '1428845338', '1', 'Lorenzo Alfonso', 'Ramirez', '', '2798228059');
 
 -- ----------------------------
 -- Table structure for users_groups
@@ -171,4 +262,10 @@ CREATE TABLE `users_groups` (
   KEY `fk_users_groups_groups1_idx` (`group_id`),
   CONSTRAINT `fk_users_groups_groups1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_groups_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of users_groups
+-- ----------------------------
+INSERT INTO `users_groups` VALUES ('1', '1', '1');
+INSERT INTO `users_groups` VALUES ('18', '26', '2');

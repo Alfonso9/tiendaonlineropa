@@ -34,11 +34,11 @@
           </li>
           <li class="dropdown">
             <a class="text-uppercase dropdown-toggle glyphicon glyphicon-user" data-toggle="dropdown" role="button" aria-expanded="false">
-              <?php echo strtok($user->first_name, " "); ?>
+              <?php echo strtok($user->username, " "); ?>
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="perfil"><small>Perfil</small></a></li>
+              <li><a href="dCuenta"><small>Perfil</small></a></li>
               <li class="divider"></li>
               <li><a href="<?=base_url()?>auth/logout"><small>Cerrar Sesión</small></a></li>              
             </ul>

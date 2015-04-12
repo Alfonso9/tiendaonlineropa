@@ -40,13 +40,13 @@
 				</tr>								
 				<tr>
 					<td>
-						<input type="radio" name="metEnv" checked> 				
+						<input type="radio" name="metEnv" id="visa" onclick="seleccion()"> 				
 					</td>
 					<td>
-						<input type="radio" name="metEnv" checked> 				
+						<input type="radio" name="metEnv" id="mastercard" onclick="seleccion()">	
 					</td>
 					<td>
-						<input type="radio" name="metEnv" checked> 				
+						<input type="radio" name="metEnv" id="paypal" onclick="seleccion()">
 					</td>					
 				</tr>
 			</tbody>				
@@ -61,12 +61,53 @@
 		</table>
 		<table class="table buttons">			
 			<td class="totale"><a class="btn btn-primary active" role="button" href="envio">ENVÏO</a></td>			
-			<td class="total"><a class="btn btn-primary active" role="button" href="realizado">AUTORIZAR PAGO</a></td>
+			<td class="total"><a class="btn btn-primary active" id="real" role="button" href="realizado">AUTORIZAR PAGO</a></td>
 		</table>
 	</div>
 </div>
 
 <script type="text/javascript">		
+		window.onload = function(){ document.getElementById("real").setAttribute("disabled", "disabled"); }
+		function seleccion()
+		{
+			var pago = null;
+			if(document.getElementById('mastercard').checked == 1)
+			{
+				pago = 'mastercard';
+			}
+			else if(document.getElementById('visa').checked == 1)
+			{
+				pago = 'visa';
+			}
+			else if(document.getElementById('paypal').checked == 1)
+			{
+				pago = 'paypal';
+			}	
+			if(pago != null)
+			{	
+				document.getElementById("real").removeAttribute("disabled", "disabled");
+				$.ajax
+		        ({
+		        	type: "POST",
+			        url: "<?php echo base_url();?>auth/addMetPago",	        
+					data: {'pago' : pago},
+					success: function()
+							{
+								try{}
+								catch(e)
+								{
+									alert('Exception while resquest...');
+								}						
+							},
+					error: 	function()
+							{
+								alert('Error while resquest..');
+							}
+			    });
+			}
+			else 
+				alert("No ha seleccionado una forma de pago");
+		}
 		function delItem(data) 
 		{		
 	       	$.ajax

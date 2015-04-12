@@ -28,7 +28,7 @@
 			    <th>Cantidad</th>
 			    <th>Precio</th>
 			    <th>Total</th>
-			    <th>Eliminar</th>
+			    <th>Eliminar</th>			    
 			  </tr>
 			</thead>
 			<tbody>
@@ -40,7 +40,7 @@
 					    <td><?php echo $i; ?></td>
 					    <td><?php echo $items['name']; ?></td>
 					    <?php foreach ($this->cart->product_options($items['rowid']) as $option_name => $option_value): ?>
-					    	<td><?php echo $option_value; ?></td>
+					    	<?php if($option_name != "envio" && $option_name != "pago")echo '<td>'.$option_value.'</td>'?>
 					    <?php endforeach; ?>				    
 					    <td><?php echo $items['qty']; ?></td>
 					    <td><?php echo $items['price']; ?></td>
@@ -65,7 +65,7 @@
 	</div>
 </div>
 
-<script type="text/javascript">	
+<script type="text/javascript">
 		function incomplete()
 		{
 			alert("No ha agregado articulos a su compra");
