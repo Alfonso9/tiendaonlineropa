@@ -54,8 +54,11 @@ class Auth extends CI_Controller {
 
 	function addProd()
 	{				
-		$producto = $this->input->post('data');				
-		$this->cart->insert($producto);
+		if($this->ion_auth->in_group('cliente'))
+		{
+			$producto = $this->input->post('data');				
+			$this->cart->insert($producto);
+		}
 	}
 
 	function compra()
@@ -101,14 +104,13 @@ class Auth extends CI_Controller {
 								'options' => $arr,
 							);
 				$this->cart->update($data);
-			endforeach;
+			endforeach;		
 		}
 
 	}
 
 	function envio()
 	{
-
 		$this->data['user'] = $this->ion_auth->user()->row();
 		$this->load->view('pedido_envio_view', $this->data);
 	}

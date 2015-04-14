@@ -1,9 +1,9 @@
 <div class="container cesta">
-	<a href="dPedido">Atras</a>
+	<a href="dPedido">< VOLVER</a>
 	<div class="pedido">
       <h2 class="ped">Pedido Realizado.</h2>
     </div>
-	<div class="table-responsive">          
+	<div class="table-responsive verpedido">          
 		<table class="table realizado">
 			<thead>
 			  <tr>
@@ -38,11 +38,11 @@
 				<?php $i = 0; $envio; $pago = 0;?>
 				<?php foreach ($query as $items): ?>
 					<tr>					    
-					    <td><?php echo $items->cod_prod.' '.$items->tipo.' '.$items->modelo; ?></td>
+					    <td class="text-uppercase"><?php echo $items->cod_prod.' '.$items->tipo.' '.$items->modelo; ?></td>
 					    <td><?php echo $items->folio; ?></td>
-					    <td><?php echo $items->color; ?></td>
-					    <td><?php echo $items->genero; ?></td>
-					    <td><?php echo $items->talla; ?></td>
+					    <td class="text-uppercase"><?php echo $items->color; ?></td>
+					    <td class="text-uppercase"><?php echo $items->genero; ?></td>
+					    <td class="text-uppercase"><?php echo $items->talla; ?></td>
 					    <td><?php echo $items->cantidad; ?></td>
 					    <td><?php $pago += $items->pago; echo $items->pago; ?></td>
 					</tr>				  				

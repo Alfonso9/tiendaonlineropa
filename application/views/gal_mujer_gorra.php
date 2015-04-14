@@ -21,7 +21,8 @@
 							               'options' => array(	'desc'	=> 	$prod->descrip,
 							               						'color' => 	$prod->color, 
 							               						'genero'=> 	$prod->genero,							               						
-							               						'talla'	=>	$prod->talla					               	
+							               						'talla'	=>	$prod->talla,
+							               						'archivo'=> "No Disponible",					               	
 							               					)
             							);            			
 					?>

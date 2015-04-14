@@ -34,7 +34,7 @@
         <h4>PEDIDOS REALIZADOS</h4>
         <p>Mantente informado sobre el estado de los pedidos que hayas realizado. Puedes consultar el detalle
         de cualquier pedido o realizar el seguimiento un del envio.</p>
-        <div class="table-responsive">          
+        <div class="table-responsive pedido">          
           <table class="table">
             <thead>
               <tr>

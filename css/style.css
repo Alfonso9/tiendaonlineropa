@@ -53,18 +53,18 @@ body {
 }
 
 .imginfo{
-	width: 400px;
-	margin-top: 20px;	
+    width: 400px;
+    margin-top: 20px;   
 }
 
 .imginfo img{
-	width: 100%;
+    width: 100%;
     height: 100%;
 }
 
 .conteiner{
-	margin-left: 50px;
-	margin-right: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
 }
 
 .bs-example{
@@ -72,34 +72,34 @@ body {
     }
 
 section article.producto
-{	
-	border-style: solid;
-	border-width: 0px;
-	display: inline-block;
-	margin: 20px 0px 20px 10%;	
-	position: relative;
-	vertical-align: top;
-	width: auto;
+{   
+    border-style: solid;
+    border-width: 0px;
+    display: inline-block;
+    margin: 20px 0px 20px 10%;  
+    position: relative;
+    vertical-align: top;
+    width: auto;
 }
 
 section article.producto img
-{		
-	position: relative;
-	height: auto;
-	width: 250px;	
+{       
+    position: relative;
+    height: auto;
+    width: 250px;   
 }
 
 section article.producto div.compra
-{			
-	position: relative;
-	width: 250px;
-	height: 150px;
-	background-color: white;		
-	margin-top: -130px;
-	opacity: 0;
-	
-	-webkit-transition: opacity 1s;
-	transition: opacity 1s;
+{           
+    position: relative;
+    width: 250px;
+    height: 150px;
+    background-color: white;        
+    margin-top: -130px;
+    opacity: 0;
+    
+    -webkit-transition: opacity 1s;
+    transition: opacity 1s;
 }
 
 
@@ -107,7 +107,7 @@ section article.producto div.compra a
 {   
     position: relative;
     padding-left: 30%;
-	color: black;
+    color: black;
 }
 
 section article.producto div.compra a:hover
@@ -116,17 +116,26 @@ section article.producto div.compra a:hover
 }
 
 section article.producto div.compra:hover
-{	
-	opacity: 0.7;
+{   
+    opacity: 0.7;
+}
+
+section article.producto div.compra div
+{
+    margin-left: 5px;
 }
 
 section article.producto div.compra div button.talla
 {
-    margin-left: 40%;
-    width: 50%;
-    height: 15%;
-    font-size: .6em;
-    display: inline;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0px;
+    font-family: Arial;
+    color: #000000;
+    font-size: 10px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+    margin-bottom: 5px;
 }
 
 .modal-dialog{
@@ -234,7 +243,7 @@ div.container div.table-responsive table.method
 }
 div.container div.table-responsive table.realizado
 {
-    width: 100%;    
+    width: auto;    
 }
 
 .loadfile
@@ -256,4 +265,80 @@ div.container div.table-responsive table.realizado
 .noactivo
 {
    pointer-events: none;
+}
+
+
+
+.create-user{
+
+    background-image: url("../images/createuser.jpg");
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: 100% auto;
+}
+
+.form-create-user{
+    margin-left: 400px;
+    margin-right: 400px;
+    padding: 10px;
+    background-color: white;
+    opacity: 0.9;
+}
+
+.form-group{
+    padding-left: 15px;
+    padding-right: 20px;
+    opacity: 1;
+}
+
+.form-btn{
+    background-color: #7f7f7f;
+    color: #e6e6e6;
+    font-family: arial; 
+    border: 0px;
+}
+
+.form-btn-buy{
+  border-radius: 0px;
+  font-family: Arial;
+  color: #e6e6e6;
+  font-size: 15px;
+  background: #7f7f7f;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  margin-top: -8px;
+}
+
+.form-btn-buy:hover{
+    background: #616161;
+    text-decoration: none;
+    color: #e6e6e6;
+}
+
+.cantidad{
+    border-radius: 0px;
+  font-family: Arial;
+  color: #e6e6e6;
+  font-size: 15px;
+  background: #7f7f7f;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  margin-top: -8px;
+}
+
+.pagination li a{
+    color: black;
+}
+
+
+.table-responsive{
+    width: 1250px;
+}
+
+.table-responsive.pedido{
+    width: 100%;
+}
+
+.table-responsive.verpedido{
+    width: 900px;
 }

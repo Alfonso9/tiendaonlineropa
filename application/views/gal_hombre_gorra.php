@@ -22,6 +22,7 @@
 							               						'color' => 	$prod->color, 
 							               						'genero'=> 	$prod->genero,							               						
 							               						'talla'	=>	$prod->talla,				               	
+							               						'archivo'=> "No Disponible",
 							               					)
             							);            			
 					?>

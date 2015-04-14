@@ -2304,9 +2304,15 @@ class Ion_auth_model extends CI_Model
 		$query = null;
 		date_default_timezone_set('UTC');
 		if($id != NULL)
-		{			
+		{				
+			print_r($arr);
 			$data; $folio = date("yjns");
 			foreach ($arr as $it):
+				print in_array("archivo", $it);
+				if (!in_array("archivo", $it))
+				{
+					$it['archivo'] = "No Disponible";
+				}
 				$data = array(	'iduser' 	=> $id, 
 								'folio' 	=> $folio,
 								'cantidad' 	=> $it['qty'],

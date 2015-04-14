@@ -30,6 +30,7 @@
 							               'options' => array(	'desc'	=> 	$prod->descrip,
 							               						'color' => 	$prod->color, 
 							               						'genero'=> 	$prod->genero,
+							               						'archivo'=> "No Disponible",
 							               					)
             							);            			
 					?>					
