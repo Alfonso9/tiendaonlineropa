@@ -57,7 +57,7 @@
             </div>
             <div class="form-group">
                   <label><?php echo lang('edit_user_validation_faddres_label');?></label><br>
-                  <input type="text" name="direccion" class="form-control" value="<?php echo $query->calle.' '.$query->numero; ?>">   
+                  <input type="text" name="direccion" class="form-control" value="<?php echo $query->calle.' '; if($query->numero != 0) echo $query->numero; ?>">   
             </div>
             <div class="form-group">
                   <label><?php echo lang('edit_user_validation_fcp_label');?></label><br>

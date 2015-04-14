@@ -5,13 +5,7 @@ class Auth extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		//$this->load->database();
-		//$this->load->library(array('ion_auth','form_validation'));
-		//$this->load->helper(array('url','language'));
-
 		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
-
-		//$this->lang->load('auth');
 	}
 
 	//redirect if needed, otherwise display the user list
@@ -68,6 +62,48 @@ class Auth extends CI_Controller {
 	{
 		$this->data['user'] = $this->ion_auth->user()->row();
 		$this->load->view('pedido_compra_view', $this->data);
+	}
+
+	function addArchivo()
+	{		
+		$config['upload_path'] = './files_images/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$this->load->library('upload', $config);
+		$this->upload->initialize($config);		
+		if (!$this->upload->do_upload()) 
+		{
+			$arr;
+			foreach ($this->cart->contents() as $items):
+				foreach ($this->cart->product_options($items['rowid']) as $option_name => $option_value):					
+						$arr[$option_name] = $option_value;
+				endforeach;
+					$arr['archivo'] = "No Disponible";
+				$data = array(
+								'rowid'   => $items['rowid'],
+								'options' => $arr,
+							);
+				$this->cart->update($data);
+			endforeach;
+			$this->data['error'] = $this->upload->display_errors();
+			$this->data['user'] = $this->ion_auth->user()->row();
+			$this->load->view('pedido_compra_view', $this->data);
+		}else
+		{
+			$success = $this->upload->data();
+			$arr;
+			foreach ($this->cart->contents() as $items):
+				foreach ($this->cart->product_options($items['rowid']) as $option_name => $option_value):					
+						$arr[$option_name] = $option_value;
+				endforeach;
+					$arr['archivo'] = $success['full_path'];
+				$data = array(
+								'rowid'   => $items['rowid'],
+								'options' => $arr,
+							);
+				$this->cart->update($data);
+			endforeach;
+		}
+
 	}
 
 	function envio()
@@ -161,6 +197,15 @@ class Auth extends CI_Controller {
 					);
 		$this->cart->update($data);
 	}		
+
+	function actCantidad()
+	{		
+		$data = array(
+						'rowid'   => $this->input->post('id'),
+						'qty'     => $this->input->post('num')
+					);
+		$this->cart->update($data);
+	}	
 	
 	function dCuenta()
 	{
@@ -332,6 +377,12 @@ class Auth extends CI_Controller {
 	function guardaPedido()
 	{
 		$this->ion_auth->setPedido();
+	}
+
+	function eliPedido()
+	{
+		$folio = $this->input->post('data');
+		$this->ion_auth->eliPedido($folio);
 	}
 
 	function mujer_playera()

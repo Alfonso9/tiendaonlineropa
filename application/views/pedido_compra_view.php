@@ -16,6 +16,7 @@
     </div>
 	<div class="table-responsive">          
 		<table class="table">
+			<?php if(isset($error)) echo $error; ?>
 			<thead>
 			  <tr>
 			  	<th>Codigo</th>
@@ -28,6 +29,7 @@
 			    <th>Cantidad</th>
 			    <th>Precio</th>
 			    <th>Total</th>
+			    <th>Archivo</th>
 			    <th>Eliminar</th>			    
 			  </tr>
 			</thead>
@@ -42,12 +44,29 @@
 					    <?php foreach ($this->cart->product_options($items['rowid']) as $option_name => $option_value): ?>
 					    	<?php if($option_name != "envio" && $option_name != "pago")echo '<td>'.$option_value.'</td>'?>
 					    <?php endforeach; ?>				    
-					    <td><?php echo $items['qty']; ?></td>
+					    <td>
+							  <ul class="pagination pagination-sm ulcantidad">
+							    <li class=""><a id="dism" onclick="disminuir(<?php echo htmlspecialchars(json_encode($items['qty'])).','.
+							    												htmlspecialchars(json_encode($items['rowid'])); ?>)" 
+							    	aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+							    <li class="disable"><a class="noactivo"><?php echo $items['qty']; ?><span class="sr-only">Current</span></a></li>
+							    <li class=""><a onclick="aumentar(<?php echo htmlspecialchars(json_encode($items['qty'])).','.
+							    												htmlspecialchars(json_encode($items['rowid'])); ?>)" 
+							    	aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+							  </ul>
+					    </td>
 					    <td><?php echo $items['price']; ?></td>
-					    <td><?php echo $this->cart->format_number($items['subtotal']); ?></td>				    									    
-					    <td><a class="glyphicon glyphicon-remove" onclick="delItem(<?php echo htmlspecialchars(json_encode($items['rowid'])); ?>)"></a></td>
-					</tr>				  				
-				<?php endforeach; ?>								
+					    <td><?php echo $this->cart->format_number($items['subtotal']); ?></td>	
+					    <td>				
+					    	<form action="<?php echo base_url();?>auth/addArchivo" name="formdata" method="post" enctype="multipart/form-data">	    						    						    	
+					    		<input type="file" class="loadfile" name="userfile" id="userfile" />
+					    		<input type="submit" class="loadfile submmiit" id="submmit" value="Subir">
+					    	</form>
+					    </td>
+					    <td><a class="glyphicon glyphicon-upload" onclick="delItem(<?php echo htmlspecialchars(json_encode($items['rowid'])); ?>)"></a></td>
+					</tr>									  			
+				<?php endforeach; ?>
+
 			</tbody>				
 		</table>
 		<table class="table totalproducts">
@@ -60,12 +79,71 @@
 		</table>
 		<table class="table buttons">			
 			<td class="totale"><a class="btn btn-primary active" role="button" href="mujer_playera">SEGUIR COMPRANDO</a></td>			
-			<td class="total"><a class="btn btn-primary active" role="button" onclick="<?php if($i>0) echo ""; else echo "incomplete()" ?>" href="<?php if($i>0) echo "envio"; else echo "" ?>">TRAMITAR PEDIDO</a></td>
+			<td class="total"><a class="btn btn-primary active" role="button" 
+			onclick="<?php if($i>0) echo "subida()"; else echo "incomplete()" ?>" 
+			href="<?php if($i>0) echo "envio"; else echo "" ?>">TRAMITAR PEDIDO</a></td>
 		</table>
 	</div>
 </div>
-
 <script type="text/javascript">
+		function disminuir(num, id)
+		{
+			if (num > 1) 
+			{
+				num -= 1;
+				$.ajax
+		        ({
+		        	type: "POST",
+			        url: "<?php echo base_url();?>auth/actCantidad",	        
+					data: {'id' : id, 'num' : num},
+					success: function()
+							{
+								try
+								{								
+									location.reload();
+								}catch(e)
+								{
+									alert('Exception while resquest...');
+								}						
+							},
+					error: 	function()
+							{
+								alert('Error while resquest..');
+							}
+			    });
+		    }
+		    else
+		    	document.getElementById("dism").setAttribute("disabled", "disabled");
+
+		}
+		function aumentar(num, id)
+		{
+			num += 1;
+			$.ajax
+	        ({
+	        	type: "POST",
+		        url: "<?php echo base_url();?>auth/actCantidad",	        
+				data: {'id' : id, 'num' : num},
+				success: function()
+						{
+							try
+							{								
+								location.reload();
+							}catch(e)
+							{
+								alert('Exception while resquest...');
+							}						
+						},
+				error: 	function()
+						{
+							alert('Error while resquest..');
+						}
+		    });
+		}
+		function subida() 
+		{	
+	       	document.getElementById('submmit').click();
+	    }
 		function incomplete()
 		{
 			alert("No ha agregado articulos a su compra");

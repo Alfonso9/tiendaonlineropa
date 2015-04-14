@@ -40,19 +40,21 @@
 			    <th>Genero</th>
 			    <th>Talla</th>
 			    <th>Cantidad</th>
+			    <th>Imagen a bordar</th>
 			    <th>Precio</th>
 			  </tr>
 			</thead>
 			<tbody>
-				<?php $i = 0; $envio; $pago = 0;?>
+				<?php $i = 0; $envio; $pago = 0; $folio = 0;?>
 				<?php foreach ($query as $items): ?>
 					<tr>					    
 					    <td><?php echo $items->cod_prod.' '.$items->tipo.' '.$items->modelo; ?></td>
-					    <td><?php echo $items->folio; ?></td>
+					    <td><?php $folio = $items->folio; echo $items->folio; ?></td>
 					    <td><?php echo $items->color; ?></td>
 					    <td><?php echo $items->genero; ?></td>
 					    <td><?php echo $items->talla; ?></td>
 					    <td><?php echo $items->cantidad; ?></td>
+					    <td><?php echo $items->archivo; ?></td>
 					    <td><?php $pago += $items->pago; echo $items->pago; ?></td>
 					</tr>				  				
 				<?php $i++; endforeach; ?>								
@@ -68,25 +70,24 @@
 		</table>
 		<table class="table buttons">			
 			<td class="totale"><a class="btn btn-primary active" role="button" href="main">VOLVER A PRINCIPAL</a></td>			
-			<td class="total"><a class="btn btn-primary active" role="button" href="">CANCELAR PEDIDO</a></td>
+			<td class="total"><a class="btn btn-primary active" role="button" 
+				onclick="eliPedido(<?php echo htmlspecialchars(json_encode($folio)); ?>)" href="compra">CANCELAR PEDIDO</a></td>
 		</table>
 	</div>
 </div>
 
 <script type="text/javascript">		
-		function delItem(data) 
-		{		
+		function eliPedido(data) 
+		{					
 	       	$.ajax
 	        ({
 	        	type: "POST",
-		        url: "<?php echo base_url();?>auth/eliminarItem",	        
+		        url: "<?php echo base_url();?>auth/eliPedido",	        
 				data: {'data' : data},
 				success: function()
 						{
 							try
 							{								
-								alert("Eliminado de tu compra");
-								location.reload();
 							}catch(e)
 							{
 								alert('Exception while resquest...');

@@ -2304,7 +2304,7 @@ class Ion_auth_model extends CI_Model
 		$query = null;
 		date_default_timezone_set('UTC');
 		if($id != NULL)
-		{
+		{			
 			$data; $folio = date("yjns");
 			foreach ($arr as $it):
 				$data = array(	'iduser' 	=> $id, 
@@ -2314,7 +2314,7 @@ class Ion_auth_model extends CI_Model
 								'color' 	=> $it['color'],
 								'talla' 	=> $it['talla'],
 								'fecha' 	=> date('Y-m-d'),
-								'archivo' 	=> " ",
+								'archivo' 	=> $it['archivo'],
 								'servicio' 	=> " ",
 								'pago'		=> $it['price'],
 								'estado_ped'=> "Pendiente",
@@ -2322,6 +2322,15 @@ class Ion_auth_model extends CI_Model
 				$str = $this->db->insert_string('pedido', $data);
 				$query = $this->db->query($str);
 			endforeach;									
+		}
+		return $folio;
+	}
+
+	public function eliPedido($folio=NULL)
+	{	
+		if($folio != NULL)			
+		{			
+			$query = $this->db->query("DELETE FROM pedido WHERE folio = ".$folio.";");			
 		}
 		return $folio;
 	}

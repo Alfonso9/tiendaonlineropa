@@ -236,3 +236,24 @@ div.container div.table-responsive table.realizado
 {
     width: 100%;    
 }
+
+.loadfile
+{
+    margin-top: 0%;
+    font-size: .7em;
+}
+
+.submmiit
+{
+    display: none;
+}
+
+.ulcantidad
+{
+    margin-top: -4%;
+}
+
+.noactivo
+{
+   pointer-events: none;
+}

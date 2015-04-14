@@ -34,6 +34,10 @@
         <h5>DATOS DE ACCESO</h5>
         <p>Podrás cambiar tu datos (contraseña). Recuarda que la sefuridad de tus datos es importante, debes
         utilizar una constraseña segura y cambiarla periodicamente.</p>    
+        <h5>DATOS PERSONALES</h5>
+        <p>Podrás cambiar tu datos (contraseña). Recuarda que la sefuridad de tus datos es importante, debes
+        utilizar una constraseña segura y cambiarla periodicamente.</p>    
+        
     </div>    
 </div>
 <?php $this->load->view('footer/footer_view'); ?>
