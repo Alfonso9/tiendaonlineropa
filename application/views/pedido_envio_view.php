@@ -18,7 +18,7 @@
 		<table class="table">
 			<thead>
 			  <tr>
-			    <th>MÉTODO DE ENVÏO:</th>
+			    <th>MÉTODO DE ENVÍO:</th>
 			  </tr>
 			</thead>
 			<tbody>
@@ -28,27 +28,27 @@
 				<?php endforeach; ?>
 				<tr>
 					<td>
-						<input type="radio" id="standard" name="metEnv" onclick="seleccion()"> Standard: 2 a 4 dias (*Excepto zonas remotas) MXN $ 55.00				
+						<input type="radio" id="standard" name="metEnv" onclick="seleccion()"> Standard: 2 a 4 días (*Excepto zonas remotas) MXN 55.00				
 					</td>
 				</tr>								
 				<tr>
 					<td>
-						<input type="radio" id="recogida" name="metEnv" onclick="seleccion()"> Recogida en Tienda: 3 a 5 dias (*Excepto zonas remotas) GRATUITO
+						<input type="radio" id="recogida" name="metEnv" onclick="seleccion()"> Recogida en Tienda: 3 a 5 días (*Excepto zonas remotas) GRATUITO
 					</td>
 				</tr>
 			</tbody>				
 		</table>
 		<table class="table totalproducts env">
-			<td class="total">Total de productos</td>
+			<td class="total">Total de productos:</td>
 			<td><?php echo $i ?> Productos</td>			
 		</table>
 		<table class="table totalMXN env">
-			<td class="total">Total</td>
-			<td>MXN $<?php echo $this->cart->format_number($this->cart->total()); ?></td>			
+			<td class="total">Total:</td>
+			<td>MXN <?php echo $this->cart->format_number($this->cart->total()); ?></td>			
 		</table>
 		<table class="table buttons">			
-			<td class="totale"><a class="btn btn-primary active" role="button" href="compra">TU COMPRA</a></td>			
-			<td class="total"><a class="btn btn-primary active pago" id="pagod" role="button" href="pagar">SEGUIR</a></td>
+			<td class="totale"><a class="form-btn-buy" role="button" href="compra">TU COMPRA</a></td>			
+			<td class="total"><a class="form-btn-buy btn active pago" id="pagod" role="button" href="pagar">SEGUIR</a></td>
 		</table>
 	</div>
 </div>

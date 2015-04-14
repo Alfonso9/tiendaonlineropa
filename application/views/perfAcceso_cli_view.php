@@ -29,31 +29,33 @@
     </nav>
     <!--Main Content -->
         <!--Main Content -->
-    <div class="col-xs-5">          
+    <div class="col-xs-5">  
+      <section class="group">         
         <h2><?php echo $query->nombre.' '.$query->aPaterno.' '.$query->aMaterno; ?></h2>
-        <h4>CAMBIO DE DATOS DE TU CUENTA</h4>    
-      <div id="infoMessage"><?php echo $message;?></div>          
-      <form class="form-horizontal" name="form" action="<?php base_url();?>edit_cuenta" method="POST">            
-            <div class="form-group">
-                  <label><?php echo lang('create_user_fuser_label');?></label><br>
-                  <input type="text" name="username" class="form-control" value="<?php echo $user->username; ?>">
-            </div>
-            <div class="form-group">
-                  <label><?php echo lang('edit_user_validation_email_label');?></label><br>
-                  <input type="email" name="email" class="form-control" disabled="true" value="<?php echo $user->email;?>">
-            </div>               
-            <div class="form-group">
-                  <label><?php echo lang('create_user_password_label', 'phone');?></label><br>
-                  <input type="password" name="password" class="form-control">
-            </div>
-            <div class="form-group">
-                  <label><?php echo lang('create_user_password_confirm_label');?></label><br>
-                  <input type="password" name="password_confirm" class="form-control">          
-            </div>            
-            <div>
-                  <button class="#" type="submit"><?php echo lang('edit_user_submit_btn');?></button>            
-            </div>
-      </form>
+         <h4>CAMBIO DE DATOS DE TU CUENTA</h4>    
+        <div id="infoMessage"><?php echo $message;?></div>          
+        <form class="form-horizontal" name="form" action="<?php base_url();?>edit_cuenta" method="POST">            
+              <div class="form-group">
+                    <label><?php echo lang('create_user_fuser_label');?></label><br>
+                    <input type="text" name="username" class="form-control" value="<?php echo $user->username; ?>">
+              </div>
+              <div class="form-group">
+                    <label><?php echo lang('edit_user_validation_email_label');?></label><br>
+                    <input type="email" name="email" class="form-control" disabled="true" value="<?php echo $user->email;?>">
+              </div>               
+              <div class="form-group">
+                    <label><?php echo lang('create_user_password_label', 'phone');?></label><br>
+                    <input type="password" name="password" class="form-control">
+              </div>
+              <div class="form-group">
+                    <label><?php echo lang('create_user_password_confirm_label');?></label><br>
+                    <input type="password" name="password_confirm" class="form-control">          
+              </div>            
+              <div>
+                    <button class="form-btn" type="submit"><?php echo lang('edit_user_submit_btn');?></button>            
+              </div>
+        </form>
+      </section> 
     </div>    
 </div>
 <?php $this->load->view('footer/footer_view'); ?>

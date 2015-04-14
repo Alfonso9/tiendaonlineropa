@@ -2304,15 +2304,11 @@ class Ion_auth_model extends CI_Model
 		$query = null;
 		date_default_timezone_set('UTC');
 		if($id != NULL)
-		{				
-			print_r($arr);
+		{			
 			$data; $folio = date("yjns");
 			foreach ($arr as $it):
-				print in_array("archivo", $it);
-				if (!in_array("archivo", $it))
-				{
-					$it['archivo'] = "No Disponible";
-				}
+				if (!array_key_exists('archivo', $it)) { $it['archivo'] = 'No Disponible';}
+				if (!array_key_exists('servicio', $it)) { $it['servicio'] = 'No Disponible';}
 				$data = array(	'iduser' 	=> $id, 
 								'folio' 	=> $folio,
 								'cantidad' 	=> $it['qty'],
@@ -2321,7 +2317,7 @@ class Ion_auth_model extends CI_Model
 								'talla' 	=> $it['talla'],
 								'fecha' 	=> date('Y-m-d'),
 								'archivo' 	=> $it['archivo'],
-								'servicio' 	=> " ",
+								'servicio' 	=> $it['servicio'],
 								'pago'		=> $it['price'],
 								'estado_ped'=> "Pendiente",
 							);

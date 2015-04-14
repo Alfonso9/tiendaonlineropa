@@ -29,10 +29,11 @@
     </nav>
     <!--Main Content -->
         <!--Main Content -->
-    <div class="col-xs-5">    
-      <h2><?php echo $query->nombre.' '.$query->aPaterno.' '.$query->aMaterno; ?></h2>
-      <h4>CAMBIO DE DATOS PERSONALES</h4>      
-      <div id="infoMessage"><?php echo $message;?></div>          
+    <div class="col-xs-5"> 
+      <section class="group">    
+        <h2><?php echo $query->nombre.' '.$query->aPaterno.' '.$query->aMaterno; ?></h2>
+        <h4>CAMBIO DE DATOS PERSONALES</h4>      
+        <div id="infoMessage"><?php echo $message;?></div>          
       <form class="form-horizontal" name="form" action="<?php base_url();?>edit_personal" method="POST">
             <div class="form-group">
                   <label><?php echo lang('edit_user_validation_frfc_label');?></label><br>
@@ -80,7 +81,7 @@
                   <input type="text" name="estado" class="form-control" value="<?php echo $query->estado; ?>">     
             </div>
             <div>
-                  <button class="#" type="submit"><?php echo lang('edit_user_submit_btn');?></button>            
+                  <button class="form-btn" type="submit"><?php echo lang('edit_user_submit_btn');?></button>            
             </div>
       </form>
     </div>    

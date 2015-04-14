@@ -24,19 +24,19 @@
 $lang['error_csrf'] = 'Este formulario no pasó nuestras pruebas de seguridad.';
 
 // Login
-$lang['login_heading']         = 'Indentificate';//$lang['login_heading']         = 'Ingresar';
+$lang['login_heading']         = 'Indentíficate';//$lang['login_heading']         = 'Ingresar';
 $lang['login_subheading']      = 'Por favor, introduce tu email/usuario y contraseña.';
 $lang['login_identity_label']  = 'Email/Usuario:';
 $lang['login_password_label']  = 'Contraseña:';
 $lang['login_remember_label']  = 'Recuérdame:';
-$lang['login_submit_btn']      = 'INGRESA';//$lang['login_submit_btn']      = 'Ingresar';
+$lang['login_submit_btn']      = 'IDENTIFICAR';//$lang['login_submit_btn']      = 'Ingresar';
 $lang['login_forgot_password'] = '¿Has olvidado tu contraseña?';
-$lang['signup_heading']        = 'Registrate'; //Agregadas
-$lang['signup_btn']		       = 'Crear cuenta';	//Agregadas
+$lang['signup_heading']        = 'Regístrate'; //Agregadas
+$lang['signup_btn']		       = 'CREAR CUENTA';	//Agregadas
 
 //Compra
 $lang['buy_submit_btn']      = 'TU COMPRA';
-$lang['caradd_submit_btn']   = 'Agregar al carrito';
+$lang['caradd_submit_btn']   = 'AÑADIR A COMPRA';
 
 // Index
 $lang['index_heading']           = 'Usuarios';
@@ -71,7 +71,7 @@ $lang['delete_validation_confirm_label'] = 'confirmación';
 $lang['delete_validation_user_id_label'] = 'ID de usuario';
 
 // Create User
-$lang['create_user_heading']                           = 'Crear Usuario';
+$lang['create_user_heading']                           = 'Regístrate';
 $lang['create_user_subheading']                        = 'Por favor, introduzce la información del usuario.';
 $lang['create_user_fname_label']                       = 'Nombre:';
 $lang['create_user_fuser_label']                       = 'Nombre de usuario:';
@@ -82,7 +82,7 @@ $lang['create_user_birthday_label']                    = 'Fecha de nacimiento:';
 $lang['create_user_phone_label']                       = 'Teléfono:';
 $lang['create_user_password_label']                    = 'Contraseña:';
 $lang['create_user_password_confirm_label']            = 'Confirmar contraseña:';
-$lang['create_user_submit_btn']                        = 'Crear';
+$lang['create_user_submit_btn']                        = 'REGISTRAR';
 $lang['create_user_validation_fname_label']            = 'Nombre';
 $lang['create_user_validation_fusername_label']        = 'Nombre de usuario';
 $lang['create_user_validation_lname_label']            = 'Apellidos';
@@ -106,7 +106,7 @@ $lang['edit_user_phone_label']                       = 'Teléfono:';
 $lang['edit_user_password_label']                    = 'Contraseña: (si quieres cambiarla)';
 $lang['edit_user_password_confirm_label']            = 'Confirmar contraseña: (si quieres cambiarla)';
 $lang['edit_user_groups_heading']                    = 'Miembro de grupos';
-$lang['edit_user_submit_btn']                        = 'Actualizar Datos';
+$lang['edit_user_submit_btn']                        = 'ACTUALIZAR DATOS';
 $lang['edit_user_validation_frfc_label']             = 'RFC';
 $lang['edit_user_validation_fcp_label']              = 'Codigo Postal';
 $lang['edit_user_validation_faddres_label']          = 'Dirección';

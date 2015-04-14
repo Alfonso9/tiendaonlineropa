@@ -29,33 +29,34 @@
     </nav>
     <!--Main Content -->
         <!--Main Content -->
-    <div class="col-xs-5 vistaPedido" id="divfeo">          
-        <h2><?php echo $query->nombre.' '.$query->aPaterno.' '.$query->aMaterno; ?></h2>
-        <h4>PEDIDOS REALIZADOS</h4>
-        <p>Mantente informado sobre el estado de los pedidos que hayas realizado. Puedes consultar el detalle
-        de cualquier pedido o realizar el seguimiento un del envio.</p>
-        <div class="table-responsive pedido">          
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Fecha</th>
-                <th>Número</th>
-                <th>Estado</th>                
-                <th>Acciones</th>                
-              </tr>
-            </thead>
-            <tbody>
-              <?php foreach ($ped as $items): ?>
-                <tr>
-                    <td><?php echo $items->fecha; ?></td>
-                    <td><?php echo $items->folio; ?></td>
-                    <td><?php echo $items->estado_ped; ?></td>                                        
-                    <td><a onclick="verPedidoSel(<?php echo htmlspecialchars(json_encode($items->folio)); ?>)">Ver detalle</a></td>                    
-                </tr>                 
-              <?php endforeach; ?>                
-            </tbody>        
-          </table>          
-        </div>
+    <div class="col-xs-5 vistaPedido" id="divfeo">
+        <section class="group">           
+            <h2><?php echo $query->nombre.' '.$query->aPaterno.' '.$query->aMaterno; ?></h2>
+            <h4>PEDIDOS REALIZADOS</h4>
+            <p>Mantente informado sobre el estado de los pedidos que hayas realizado. Puedes consultar el detalle de cualquier pedido o realizar un seguimiento del envío.</p>
+            <div class="table-responsive pedido">          
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Fecha</th>
+                    <th>Número</th>
+                    <th>Estado</th>                
+                    <th>Acciones</th>                
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php foreach ($ped as $items): ?>
+                    <tr>
+                        <td><?php echo $items->fecha; ?></td>
+                        <td><?php echo $items->folio; ?></td>
+                        <td><?php echo $items->estado_ped; ?></td>                                        
+                        <td><a onclick="verPedidoSel(<?php echo htmlspecialchars(json_encode($items->folio)); ?>)">Ver detalle</a></td>                    
+                    </tr>                 
+                  <?php endforeach; ?>                
+                </tbody>        
+              </table>          
+            </div>
+        </section>
     </div>    
 </div>
 

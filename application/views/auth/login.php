@@ -19,7 +19,7 @@
               <input type="checkbox" name="remember" id="remember" value="1" checked="checked" />
             </div>
             <div>
-              <button type="submit" class="#"><?php echo lang('login_submit_btn');?></button>
+              <button type="submit" class="form-btn"><?php echo lang('login_submit_btn');?></button>
             </div>
           </form>
         </div>
@@ -32,7 +32,7 @@
           <p><small>Si todavía no tienes una cuenta de usuario de TSHIRTANDSTAFF.COM, utiliza esta opción para acceder al formulario de registro. Te solicitaremos la información imprescindible para agilizar el proceso de compra.</small></p>
           <div>
             <a href="create_user">
-            <button class="#"><?php echo lang('signup_btn');?></button>
+            <button class="form-btn"><?php echo lang('signup_btn');?></button>
             </a>
           </div>
         </div>

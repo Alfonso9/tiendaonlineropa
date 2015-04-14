@@ -1,7 +1,7 @@
 <div class="container cesta">
 	<a href="dPedido">< VOLVER</a>
 	<div class="pedido">
-      <h2 class="ped">Pedido Realizado.</h2>
+      <h2 class="ped">Pedido Realizado</h2>
     </div>
 	<div class="table-responsive verpedido">          
 		<table class="table realizado">
@@ -25,13 +25,13 @@
 		<table class="table">
 			<thead>
 			  <tr>
-			    <th>Descripción</th>
-			    <th>Folio</th>
-			    <th>Color</th>
-			    <th>Genero</th>
-			    <th>Talla</th>
-			    <th>Cantidad</th>
-			    <th>Precio</th>
+			    <th>DESCRIPCIÓN</th>
+			    <th>FOLIO</th>
+			    <th>COLOR</th>
+			    <th>GENERO</th>
+			    <th>TALLA</th>
+			    <th>CANTIDAD</th>
+			    <th>PRECIO</th>
 			  </tr>
 			</thead>
 			<tbody>
@@ -44,18 +44,18 @@
 					    <td class="text-uppercase"><?php echo $items->genero; ?></td>
 					    <td class="text-uppercase"><?php echo $items->talla; ?></td>
 					    <td><?php echo $items->cantidad; ?></td>
-					    <td><?php $pago += $items->pago; echo $items->pago; ?></td>
+					    <td>MXN <?php $pago += $items->pago; echo $items->pago; ?> .00</td>
 					</tr>				  				
 				<?php $i++; endforeach; ?>								
 			</tbody>				
 		</table>
 		<table class="table totalproducts env">
-			<td class="total">Total de productos</td>
+			<td class="total">Total de productos:</td>
 			<td><?php echo $i ?> Productos</td>			
 		</table>
 		<table class="table totalMXN env">
-			<td class="total">Total</td>
-			<td>MXN $<?php echo $pago; ?></td>			
+			<td class="total">Total:</td>
+			<td>MXN <?php echo $pago; ?> .00</td>			
 		</table>
 	</div>
 </div>

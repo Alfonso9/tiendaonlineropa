@@ -29,15 +29,16 @@
     </nav>
     <!--Main Content -->
         <!--Main Content -->
-    <div class="col-xs-5">          
-        <h2><?php echo $query->nombre.' '.$query->aPaterno.' '.$query->aMaterno; ?></h2>
-        <h5>DATOS DE ACCESO</h5>
-        <p>Podrás cambiar tu datos (contraseña). Recuarda que la sefuridad de tus datos es importante, debes
-        utilizar una constraseña segura y cambiarla periodicamente.</p>    
-        <h5>DATOS PERSONALES</h5>
-        <p>Podrás cambiar tu datos (contraseña). Recuarda que la sefuridad de tus datos es importante, debes
-        utilizar una constraseña segura y cambiarla periodicamente.</p>    
-        
+    <div class="col-xs-5">   
+        <section class="group">       
+            <h2><?php echo $query->nombre.' '.$query->aPaterno.' '.$query->aMaterno; ?></h2>
+            <h5><small><strong>DATOS DE ACCESO</strong></small></h5>
+            <p>Podrás cambiar tus datos de acceso (e-mail y contraseña). Recuerda que la seguridad de tus datos personales es importante, debes utilizar una contraseña segura y cambiarla periódicamente.</p>    
+            <h5><small><strong>DATOS PERSONALES</strong></small></h5>
+            <p>Podrás acceder y modificar tus datos personales (nombre, dirección de facturación, teléfono,...) para facilitar tus futuras compras y notificarnos cambios en tus datos de contacto.</p>
+            <h5><small><strong>PEDIDOS REALIZADOS</strong></small></h5>
+            <p>Mantente informado sobre el estado de los pedidos que hayas realizado. Si los pedidos están siendo enviados a tu domicilio, encontrarás enlaces para hacer el seguimiento de la entrega.</p>
+        </section>
     </div>    
 </div>
 <?php $this->load->view('footer/footer_view'); ?>

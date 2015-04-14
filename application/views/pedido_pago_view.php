@@ -14,7 +14,7 @@
       <h2 class="envio des">2. Envío</h2>
       <h2 class="pago">3. Pago</h2>
     </div>
-    <span>SELECCIONE SU MÉTODO DE PAGO:</span>
+    <span>SELECCIONA EL MÉTODO DE PAGO</span>
 	<div class="table-responsive">          
 		<table class="table method">
 			<thead>
@@ -52,16 +52,16 @@
 			</tbody>				
 		</table>
 		<table class="table totalproducts env">
-			<td class="total">Total de productos</td>
+			<td class="total">Total de productos:</td>
 			<td><?php echo $i ?> Productos</td>			
 		</table>
 		<table class="table totalMXN env">
-			<td class="total">Total</td>
-			<td>MXN $<?php echo $this->cart->format_number($this->cart->total()); ?></td>			
+			<td class="total">Total:</td>
+			<td>MXN <?php echo $this->cart->format_number($this->cart->total()); ?></td>			
 		</table>
 		<table class="table buttons">			
-			<td class="totale"><a class="btn btn-primary active" role="button" href="envio">ENVÏO</a></td>			
-			<td class="total"><a class="btn btn-primary active" id="real" role="button" href="realizado">AUTORIZAR PAGO</a></td>
+			<td class="totale"><a class="form-btn-buy active" role="button" href="envio">ENVÍO</a></td>			
+			<td class="total"><a class="form-btn-buy active" id="real" role="button" href="realizado">AUTORIZAR PAGO</a></td>
 		</table>
 	</div>
 </div>

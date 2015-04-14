@@ -257,6 +257,13 @@ div.container div.table-responsive table.realizado
     display: none;
 }
 
+.servicio
+{
+    margin-top: 0%;
+    margin-left: 0%;
+    font-size: 0.6em;   
+}
+
 .ulcantidad
 {
     margin-top: -4%;
@@ -332,7 +339,7 @@ div.container div.table-responsive table.realizado
 
 
 .table-responsive{
-    width: 1250px;
+    width: 1280px;
 }
 
 .table-responsive.pedido{

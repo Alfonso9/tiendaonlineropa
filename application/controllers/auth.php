@@ -54,11 +54,8 @@ class Auth extends CI_Controller {
 
 	function addProd()
 	{				
-		if($this->ion_auth->in_group('cliente'))
-		{
-			$producto = $this->input->post('data');				
-			$this->cart->insert($producto);
-		}
+		$producto = $this->input->post('data');				
+		$this->cart->insert($producto);
 	}
 
 	function compra()
@@ -73,44 +70,51 @@ class Auth extends CI_Controller {
 		$config['allowed_types'] = 'gif|jpg|png';
 		$this->load->library('upload', $config);
 		$this->upload->initialize($config);		
-		if (!$this->upload->do_upload()) 
-		{
-			$arr;
-			foreach ($this->cart->contents() as $items):
-				foreach ($this->cart->product_options($items['rowid']) as $option_name => $option_value):					
-						$arr[$option_name] = $option_value;
-				endforeach;
-					$arr['archivo'] = "No Disponible";
-				$data = array(
-								'rowid'   => $items['rowid'],
-								'options' => $arr,
-							);
-				$this->cart->update($data);
-			endforeach;
-			$this->data['error'] = $this->upload->display_errors();
-			$this->data['user'] = $this->ion_auth->user()->row();
-			$this->load->view('pedido_compra_view', $this->data);
-		}else
-		{
+		$id = $this->input->post('id');		
+		if ($this->upload->do_upload()) 
+		{			
 			$success = $this->upload->data();
 			$arr;
 			foreach ($this->cart->contents() as $items):
 				foreach ($this->cart->product_options($items['rowid']) as $option_name => $option_value):					
 						$arr[$option_name] = $option_value;
 				endforeach;
+				if($items['id'] == $id)										
 					$arr['archivo'] = $success['full_path'];
 				$data = array(
 								'rowid'   => $items['rowid'],
 								'options' => $arr,
 							);
 				$this->cart->update($data);
-			endforeach;		
+			endforeach;			
+			redirect(base_url().'auth/compra');
 		}
 
 	}
 
+	function addServicio()
+	{
+		$servi = $this->input->post('servicio');
+		$id = $this->input->post('id');
+		$arr;
+		foreach ($this->cart->contents() as $items):
+			foreach ($this->cart->product_options($items['rowid']) as $option_name => $option_value):					
+					$arr[$option_name] = $option_value;
+			endforeach;
+			if($items['id'] == $id)
+				$arr['servicio'] = $servi;
+			$data = array(
+							'rowid'   => $items['rowid'],
+							'options' => $arr,
+						);
+			$this->cart->update($data);
+		endforeach;
+		echo json_encode("hola");
+	}
+
 	function envio()
 	{
+
 		$this->data['user'] = $this->ion_auth->user()->row();
 		$this->load->view('pedido_envio_view', $this->data);
 	}
