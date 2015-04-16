@@ -2353,6 +2353,21 @@ class Ion_auth_model extends CI_Model
 		}
 	}
 
+	public function getPedReport()
+	{
+				
+			$query = $this->db->query("SELECT * FROM producto JOIN (SELECT * FROM pedido) 
+									   AS ped ON producto.cod_prod = ped.cod_prod ORDER BY ped.fecha;");
+			return $query->result();
+	}
+
+	public function getMatReport()
+	{
+				
+			$query = $this->db->query("SELECT * FROM material;");
+			return $query->result();
+	}
+
 	public function setPers($id, $user, $cli, $dir)
 	{		
 		$where = "id = ".$id;

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50623
 File Encoding         : 65001
 
-Date: 2015-04-12 15:12:14
+Date: 2015-04-14 16:59:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -34,6 +34,7 @@ CREATE TABLE `cliente` (
 -- Records of cliente
 -- ----------------------------
 INSERT INTO `cliente` VALUES ('26', 'RAMS897635', 'Lorenzo Alfonso', 'Ramirez', 'Zarate', '2015-04-14');
+INSERT INTO `cliente` VALUES ('27', 'RAML200806', 'Alfonso', 'Ramirez', ' ', '2015-04-14');
 
 -- ----------------------------
 -- Table structure for dircliente
@@ -55,7 +56,8 @@ CREATE TABLE `dircliente` (
 -- ----------------------------
 -- Records of dircliente
 -- ----------------------------
-INSERT INTO `dircliente` VALUES ('26', 'Guanajuato', 'Xalapa', '10', '91000', 'Xalapa', ' Macu', 'Veracruz');
+INSERT INTO `dircliente` VALUES ('26', 'Guanajuato', 'Xalapa', '504', '91000', 'Xalapa', ' Macu', 'Veracruz');
+INSERT INTO `dircliente` VALUES ('27', 'Guanajuato', 'Xalapa', '100', '91000', 'Xalapa', 'Macuiltepelt', 'Veracruz');
 
 -- ----------------------------
 -- Table structure for empleado
@@ -83,14 +85,16 @@ CREATE TABLE `groups` (
   `name` varchar(20) NOT NULL,
   `description` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of groups
 -- ----------------------------
 INSERT INTO `groups` VALUES ('1', 'admin', 'Administrador');
 INSERT INTO `groups` VALUES ('2', 'cliente', 'Publico en General');
-INSERT INTO `groups` VALUES ('3', 'empleado', 'Empleado de la Empresa');
+INSERT INTO `groups` VALUES ('3', 'mostrador', 'Empleado de la Empresa');
+INSERT INTO `groups` VALUES ('4', 'bordado', 'Empleado bordado');
+INSERT INTO `groups` VALUES ('5', 'serigrafia', 'Empleado serigrafia');
 
 -- ----------------------------
 -- Table structure for login_attempts
@@ -133,14 +137,14 @@ CREATE TABLE `pedido` (
   `folio` int(5) NOT NULL,
   `cantidad` int(11) unsigned DEFAULT NULL,
   `cod_prod` varchar(5) NOT NULL,
-  `color` varchar(20) DEFAULT NULL,
-  `talla` varchar(10) DEFAULT NULL,
+  `color` varchar(20) NOT NULL,
+  `talla` varchar(10) NOT NULL,
   `fecha` date DEFAULT NULL,
   `archivo` varchar(255) DEFAULT NULL,
   `servicio` varchar(255) DEFAULT NULL,
   `pago` varchar(50) DEFAULT NULL,
   `estado_ped` varchar(40) DEFAULT NULL,
-  PRIMARY KEY (`iduser`,`folio`,`cod_prod`),
+  PRIMARY KEY (`iduser`,`folio`,`cod_prod`,`color`,`talla`),
   KEY `fk_cod_prod` (`cod_prod`),
   CONSTRAINT `fk_cod_prod` FOREIGN KEY (`cod_prod`) REFERENCES `producto` (`cod_prod`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `fk_id_iduser_4` FOREIGN KEY (`iduser`) REFERENCES `cliente` (`iduser`) ON DELETE CASCADE ON UPDATE NO ACTION
@@ -149,12 +153,6 @@ CREATE TABLE `pedido` (
 -- ----------------------------
 -- Records of pedido
 -- ----------------------------
-INSERT INTO `pedido` VALUES ('26', '1512402', '1', '10', 'grisgaspe', 'G', '2015-04-12', ' ', ' ', '55', 'Pendiente');
-INSERT INTO `pedido` VALUES ('26', '1512402', '1', '12', 'azulrey', 'G', '2015-04-12', ' ', ' ', '55', 'Pendiente');
-INSERT INTO `pedido` VALUES ('26', '1512402', '1', '30', 'blanco', 'G', '2015-04-12', ' ', ' ', '65', 'Pendiente');
-INSERT INTO `pedido` VALUES ('26', '1512402', '1', '32', 'negro', 'G', '2015-04-12', ' ', ' ', '65', 'Pendiente');
-INSERT INTO `pedido` VALUES ('26', '1512428', '1', '1', 'blanco', 'G', '2015-04-12', ' ', ' ', '25', 'Pendiente');
-INSERT INTO `pedido` VALUES ('26', '1512444', '1', '32', 'negro', 'G', '2015-04-12', ' ', ' ', '65', 'Pendiente');
 
 -- ----------------------------
 -- Table structure for producto
@@ -240,13 +238,14 @@ CREATE TABLE `users` (
   `company` varchar(100) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('1', '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', null, null, 'XxZBCclY/nVWW7g9OyUDm.', '1268889823', '1428682377', '1', 'Admin', 'istrator', 'ADMIN', '0');
-INSERT INTO `users` VALUES ('26', '127.0.0.1', 'Alfonso', '$2y$08$nncKhYTnvWsxSvUXPTRo5.PD7A17Cfz/0YTdTbvcTykdjzBQEpmiW', null, 'lorenzo@hotmail.com', null, null, null, 'FU9oBszZFI.hhKtUKuh2pu', '1428785477', '1428845338', '1', 'Lorenzo Alfonso', 'Ramirez', '', '2798228059');
+INSERT INTO `users` VALUES ('1', '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', null, null, 'lEqGpn31iQAKs9q1Flea/e', '1268889823', '1429027570', '1', 'Admin', 'istrator', 'ADMIN', '0');
+INSERT INTO `users` VALUES ('26', '127.0.0.1', 'Alfonso', '$2y$08$nncKhYTnvWsxSvUXPTRo5.PD7A17Cfz/0YTdTbvcTykdjzBQEpmiW', null, 'lorenzo@hotmail.com', null, null, null, '6CfThkfi8J25Pgeh71Xeru', '1428785477', '1429025461', '1', 'Lorenzo Alfonso', 'Ramirez', '', '2798228059');
+INSERT INTO `users` VALUES ('27', '127.0.0.1', 'alfonso ramirez', '$2y$08$hSrcJJVz1xe/nGb5nXupkeTrIkvIyGVwSlKVVDU1kmWgIm/eOQdmu', null, 'alfonso@hotmail.com', null, null, null, 'HwizEGmJt3gobtxrRJd1Re', '1428872999', '1429047316', '1', 'Alfonso', 'Ramirez', '', '2798228059');
 
 -- ----------------------------
 -- Table structure for users_groups
@@ -262,10 +261,11 @@ CREATE TABLE `users_groups` (
   KEY `fk_users_groups_groups1_idx` (`group_id`),
   CONSTRAINT `fk_users_groups_groups1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_groups_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of users_groups
 -- ----------------------------
 INSERT INTO `users_groups` VALUES ('1', '1', '1');
-INSERT INTO `users_groups` VALUES ('18', '26', '2');
+INSERT INTO `users_groups` VALUES ('18', '26', '4');
+INSERT INTO `users_groups` VALUES ('19', '27', '2');

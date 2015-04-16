@@ -24,7 +24,25 @@ class Auth extends CI_Controller {
 			redirect(base_url().'auth/main');
 			return show_error('You are an Cliente.');
 		}		
-		elseif (!$this->ion_auth->is_admin()) //remove this elseif if you want to enable this for non-admins
+		elseif($this->ion_auth->in_group('bordado'))
+		{	
+			$this->load->view('headers/librerias');
+			$this->load->view('PrincipalBor');
+			$this->load->view('footer');
+
+		}elseif($this->ion_auth->in_group('mostrador'))
+		{
+			$this->load->view('headers/librerias');
+			$this->load->view('PrincipalMos');
+			$this->load->view('footer');
+
+		}elseif($this->ion_auth->in_group('serigrafia'))
+		{
+			$this->load->view('headers/librerias');
+			$this->load->view('PrincipalSer');
+			$this->load->view('footer');
+
+		}elseif (!$this->ion_auth->is_admin()) //remove this elseif if you want to enable this for non-admins
 		{
 			//redirect them to the home page because they must be an administrator to view this
 			redirect(base_url().'auth/logout');
@@ -32,7 +50,7 @@ class Auth extends CI_Controller {
 		}		
 		else
 		{
-			//set the flash data error message if there is one
+			/*//set the flash data error message if there is one
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
 			//list the users
@@ -42,7 +60,10 @@ class Auth extends CI_Controller {
 				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
 			}
 
-			$this->_render_page('auth/index', $this->data);
+			$this->_render_page('auth/index', $this->data);*/
+			$this->load->view('headers/librerias');
+			$this->load->view('PrincipalAdm');
+			$this->load->view('footer');
 		}
 	}
 
@@ -863,7 +884,7 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('first_name', $this->lang->line('create_user_validation_fname_label'), 'required');
 		$this->form_validation->set_rules('last_name', $this->lang->line('create_user_validation_lname_label'), 'required');
 		$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email|is_unique['.$tables['users'].'.email]');
-		$this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label'), 'required');
+		//$this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label'), 'required');
 		//$this->form_validation->set_rules('company', $this->lang->line('create_user_validation_company_label'), 'required');
 		$this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
 		$this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
@@ -1300,5 +1321,27 @@ class Auth extends CI_Controller {
 		$view_html = $this->load->view($view, $this->viewdata, $render);
 
 		if (!$render) return $view_html;
+	}
+
+	function reporte()
+	{
+		//
+			$this->data['query'] = $this->ion_auth->getPedReport();
+		//$this->data['query'] = null;
+		$this->load->view('headers/librerias');
+		$this->load->view('Reporte', $this->data);
+		$this->load->view('footer');
+	}
+
+	function verReportSelec()
+	{	
+		if($this->input->post('reporte') == 'pedido')
+		{
+			$this->data['query'] = $this->ion_auth->getPedReport();
+			$this->load->view('reporte_ajax', $this->data);	
+		}elseif ($this->input->post('reporte') == 'material') {
+			$this->data['query'] = $this->ion_auth->getMatReport();
+			$this->load->view('reportMat_ajax', $this->data);	
+		}
 	}	
 }
